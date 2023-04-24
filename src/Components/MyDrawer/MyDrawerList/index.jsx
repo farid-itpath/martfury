@@ -9,10 +9,10 @@ export default function MyDrawerList(props) {
       <Typography
         variant="h6"
         color="primary"
-        sx={{ textDecoration: "underline",}}
+        sx={{ textDecoration: "underline", display: "flex", justifyContent:"center", alignItems:"center"}}
         >
         
-        {/* <Icon/> */}
+        <Icon/>
         <Box sx={{px:2}}>{title}</Box>
       </Typography>
       <List>
