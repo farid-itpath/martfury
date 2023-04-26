@@ -7,11 +7,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@emotion/react";
 import { DrawerContext } from "../../App";
 import { useContext } from "react";
-import { AppBar } from "@mui/material";
+import { AppBar, Fab } from "@mui/material";
 import { DRAWER_WIDTH } from "../../utils/consts";
 import MySearchBox from "./MySearchBox";
 import MyIconButtonGroup from "./MyIconButtonGroup";
 import MyProfileMenu from "./MyProfileMenu";
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 
 export const AnchorElContext = React.createContext();
 export default function MyAppBar() {
@@ -24,6 +25,9 @@ export default function MyAppBar() {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
   return (
     <Box sx={{ width: "100%" }}>
       <AppBar
@@ -57,7 +61,7 @@ export default function MyAppBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" }, fontWeight: "bold"}}
+            sx={{ display: { xs: "none", sm: "block" }, fontWeight: "bold" }}
           >
             fury
           </Typography>
@@ -68,6 +72,9 @@ export default function MyAppBar() {
             <MyProfileMenu />
           </AnchorElContext.Provider>
         </Toolbar>
+        <Fab color="primary" sx={{ position: "fixed", top: 80, right: 20 }} onClick={handleProfileMenuOpen}>
+          <AccountCircleRoundedIcon />
+        </Fab>
       </AppBar>
     </Box>
   );

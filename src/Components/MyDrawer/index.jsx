@@ -63,7 +63,7 @@ export default function MyDrawer() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <MyDrawerList title="Clothing" data={Categories.clothing} />
+        <MyDrawerList title="Clothing" data={Categories.clothing}/>
         <Divider />
         <MyDrawerList title="Furniture" data={Categories.furniture} />
 

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { MyAppBar, MyDrawer, MyFooter } from "../../Components";
 import { Container, useMediaQuery } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { DrawerContext } from "../../App";
 import { DRAWER_WIDTH } from "../../utils/consts";
 import { theme } from "../../themes";

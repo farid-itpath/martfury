@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { AnchorElContext } from "..";
-import { Badge, Box, IconButton, Menu, MenuItem } from "@mui/material";
+import { Box, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import MoreIcon from "@mui/icons-material/MoreVert";
 
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import MyIconButton from "../MyIconButton";
+import { useNavigate } from "react-router-dom";
+import { ButtonIcons } from "../../../utils/data";
+import { theme } from "../../../themes";
 
 export default function MyProfileMenu() {
   const { anchorEl, setAnchorEl } = useContext(AnchorElContext);
@@ -14,6 +14,8 @@ export default function MyProfileMenu() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const navigate = useNavigate();
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -26,10 +28,6 @@ export default function MyProfileMenu() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
   };
 
   const menuId = "primary-search-account-menu";
@@ -49,8 +47,15 @@ export default function MyProfileMenu() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem
+        onClick={() => {
+          navigate("/Profile");
+          handleMenuClose();
+        }}
+      >
+        Profile
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 
@@ -71,20 +76,17 @@ export default function MyProfileMenu() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <MyIconButton badgeContent={4} icon={<MailIcon />} />
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <MyIconButton badgeContent={17} icon={<NotificationsIcon />} />
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <MyIconButton icon={<AccountCircle />} />
-        <p>Profile</p>
-      </MenuItem>
+      {ButtonIcons.map((item) => {
+        return (
+          <MenuItem key={item.id}>
+            <MyIconButton badgeContent={item.badgeContent} icon={item.icon} />
+            <Typography variant="h6">{item.name.toUpperCase()}</Typography>
+          </MenuItem>
+        );
+      })}
     </Menu>
   );
+
   return (
     <Box sx={{ display: { xs: "flex", md: "none" } }}>
       <IconButton

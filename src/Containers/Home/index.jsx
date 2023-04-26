@@ -1,9 +1,14 @@
 import { Container, useTheme, Box, Grid } from "@mui/material";
 import { Products } from "../../utils/data";
 import MyCard from "../../Components/MyCard";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const appTheme = useTheme();
+  const navigate = useNavigate();
+  const handleOnClick = (id) => {
+    navigate("/Product/?id="+id)
+  }
   return (
     <>
       {/* Box for pushing out the content of Home from fixed navbar underneath */}
@@ -12,7 +17,7 @@ export default function Home() {
         {Products.map((item) => {
           return (
             <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
-              <MyCard name={item.name} image={item.image} />
+              <MyCard name={item.name} price={item.price} image={item.image} onClick={()=>handleOnClick(item.id)}/>
             </Grid>
           );
         })}

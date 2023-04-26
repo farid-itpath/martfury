@@ -9,25 +9,32 @@ import {
   Button,
   CardActionArea,
   CardActions,
+  Divider,
   IconButton,
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { theme } from "../../themes";
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 export default function MyCard(props) {
-  const { name, image } = props;
+  const { name, price, image, onClick } = props;
   return (
-    <Card>
+    <Card >
       <CardActionArea>
         <CardMedia
           component="img"
-          image={image.sony}
+          image={image}
           alt="green iguana"
+          sx={{height: 200, padding: 1, objectFit: 'contain'}}
         />
       </CardActionArea>
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+      <Divider/>
+      <CardContent sx={{display:'flex', justifyContent: 'space-between'}} onClick={onClick}>
+        <Typography variant="body1" component="div">
           {name}
+        </Typography>
+        <Typography variant="body1" component="span">
+          $ {price}
         </Typography>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
