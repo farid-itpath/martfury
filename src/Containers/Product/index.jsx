@@ -17,7 +17,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 export default function Product() {
   const theme = useTheme();
   const [searchParams] = useSearchParams();
-  const product = Products.find((item) => item.id == searchParams.get("id"));
+  const product = Products.find((item) => item.id === searchParams.get("id"));
   return (
     <Container
       sx={{
