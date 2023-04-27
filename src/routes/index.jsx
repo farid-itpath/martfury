@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Error404, Login, SignUp, Home, Profile, Product, Cart } from "../Containers";
+import { Error404, Login, SignUp, Home, Profile, Product, Cart } from "../containers";
 import Layout from "../layouts/AppLayout";
 
 export default function AppRoutes(){

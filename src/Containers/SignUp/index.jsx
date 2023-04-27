@@ -1,5 +1,5 @@
 import { Container, Paper, Typography } from "@mui/material";
-import { MyButton, MyTextField } from "../../Components";
+import { MyButton, MyTextField } from "../../components";
 import { theme } from "../../themes";
 import { Link } from "react-router-dom";
 

@@ -9,7 +9,7 @@ export default function MyIconButtonGroup() {
   const { setAnchorEl } = useContext(AnchorElContext);
   const menuId = "primary-search-account-menu";
   return (
-    <Box sx={{ display: { xs: "none", md: "flex" } }}>
+    <Box sx={{ display: { xs: "none", md: "flex" }}}>
       {ButtonIcons.map((item) => {
         return (
           <MyIconButton

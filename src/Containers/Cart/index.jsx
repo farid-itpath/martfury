@@ -1,4 +1,4 @@
-import { Box, Container, Divider, Typography } from "@mui/material";
+import { Box, Button, Container, Divider, Typography } from "@mui/material";
 import { TempCart } from "../../utils/data";
 import { useTheme } from "@emotion/react";
 
@@ -8,7 +8,7 @@ export default function Cart() {
     <Container
       sx={{
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "space-around",
         alignItems: "center",
         minHeight: "100vh",
       }}
@@ -16,50 +16,65 @@ export default function Cart() {
       <Box>
         {TempCart.map((item) => {
           return (
-            <Box
-              key={item.id}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                borderBottom: 1
-              }}
-            >
+            <Box key={item.id} sx={{ display: "flex", borderBottom: 1 }}>
               <Box
                 component="img"
                 src={item.image}
                 sx={{ height: 100, width: "30%" }}
-              ></Box>
-              <Box component="div">{item.name}</Box>
-              <Box component="div">$ {item.price}</Box>
+              />
+              <Box
+                sx={{
+                  width: "70%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "start",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Typography>{item.name}</Typography>
+                  <Typography>Rating: 5</Typography>
+                </Box>
+                <Box>
+                  <Box>Quantity: 4</Box>
+                  <Box>Price: $ {item.price}</Box>
+                </Box>
+              </Box>
             </Box>
           );
         })}
-        <Box sx={{display:'flex', mt:1}}>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{
-              backgroundColor: theme.palette.primary.main,
-              width: "50%",
-              paddingY: 1,
-              color: theme.palette.primary.contrastText,
-              borderRadius: 3,
-            }}
-          >
-            Checkout
-          </Typography>
-          <Typography
-            variant="caption"
-            component="div"
-            sx={{
-              width: "50%",
-              paddingY: 1,
-            }}
-          >
-            Total $ 2000
-          </Typography>
+      </Box>
+      <Box width={"50%"}>
+        <Typography variant="h5" sx={{ mb: 5 }}>
+          Bill
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            minHeight: "30vh",
+          }}
+        >
+          <Box>
+            <Typography variant="body1">Total Amount</Typography>
+            <Typography variant="body1">Discount Applied</Typography>
+            <Typography variant="h6">Payable Amount</Typography>
+          </Box>
+          <Box>
+            <Typography variant="body1">$ 2000</Typography>
+            <Typography variant="body1" color={"error"}>
+              - $ 400
+            </Typography>
+            <Typography variant="h6">$ 1600</Typography>
+          </Box>
         </Box>
+        <Button variant="contained" sx={{ width: "100%" }}>
+          Checkout
+        </Button>
       </Box>
     </Container>
   );

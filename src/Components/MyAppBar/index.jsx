@@ -12,7 +12,8 @@ import { DRAWER_WIDTH } from "../../utils/consts";
 import MySearchBox from "./MySearchBox";
 import MyIconButtonGroup from "./MyIconButtonGroup";
 import MyProfileMenu from "./MyProfileMenu";
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+
+import MySpeedDial from "../MySpeedDial";
 
 export const AnchorElContext = React.createContext();
 export default function MyAppBar() {
@@ -25,9 +26,6 @@ export default function MyAppBar() {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
   return (
     <Box sx={{ width: "100%" }}>
       <AppBar
@@ -72,9 +70,7 @@ export default function MyAppBar() {
             <MyProfileMenu />
           </AnchorElContext.Provider>
         </Toolbar>
-        <Fab color="primary" sx={{ position: "fixed", top: 80, right: 20 }} onClick={handleProfileMenuOpen}>
-          <AccountCircleRoundedIcon />
-        </Fab>
+        <MySpeedDial />
       </AppBar>
     </Box>
   );

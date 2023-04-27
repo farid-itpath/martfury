@@ -1,6 +1,6 @@
 import { Container, Paper, Typography } from "@mui/material";
-import MyTextField from "../../Components/MyTextField";
-import MyButton from "../../Components/MyButton";
+import MyTextField from "../../components/MyTextField";
+import MyButton from "../../components/MyButton";
 import { theme } from "../../themes";
 import { Link } from "react-router-dom";
 

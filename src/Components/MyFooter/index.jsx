@@ -3,10 +3,10 @@ import { theme } from "../../themes";
 import { useContext } from "react";
 import { DrawerContext } from "../../App";
 import { DRAWER_WIDTH } from "../../utils/consts";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 export default function MyFooter() {
   const { open } = useContext(DrawerContext);
@@ -18,13 +18,13 @@ export default function MyFooter() {
       sx={{
         width: open ? `calc(100% - ${DRAWER_WIDTH})` : "100%",
         marginLeft: open ? `${DRAWER_WIDTH}` : 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-around'
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-around",
       }}
     >
-      <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
-        <Box display={'flex'}>
+      <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+        <Box display={"flex"}>
           <Typography
             variant="h6"
             component="div"
@@ -47,7 +47,7 @@ export default function MyFooter() {
             fury
           </Typography>
         </Box>
-        <Box display={'flex'} flexDirection={'column'}>
+        <Box display={"flex"} flexDirection={"column"}>
           <Typography fontSize={10}>Copyright &copy; 2023</Typography>
           <Typography fontSize={10} sx={{ textDecoration: "underline" }}>
             Privacy and Policy
@@ -55,10 +55,38 @@ export default function MyFooter() {
         </Box>
       </Box>
       <Box>
-        <FacebookIcon sx={{marginX: 1}}/>
-        <YouTubeIcon sx={{marginX: 1}}/>
-        <InstagramIcon sx={{marginX: 1}}/>
-        <TwitterIcon sx={{marginX: 1}}/>
+        <FacebookIcon
+          sx={{
+            marginX: 1,
+            ":hover": {
+              color: theme.palette.primary.contrastText,
+            },
+          }}
+        />
+        <YouTubeIcon
+          sx={{
+            marginX: 1,
+            ":hover": {
+              color: theme.palette.primary.contrastText,
+            },
+          }}
+        />
+        <InstagramIcon
+          sx={{
+            marginX: 1,
+            ":hover": {
+              color: theme.palette.primary.contrastText,
+            },
+          }}
+        />
+        <TwitterIcon
+          sx={{
+            marginX: 1,
+            ":hover": {
+              color: theme.palette.primary.contrastText,
+            },
+          }}
+        />
       </Box>
     </Box>
   );

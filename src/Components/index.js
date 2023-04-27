@@ -10,6 +10,7 @@ import MyProfileMenu from "./MyAppBar/MyProfileMenu";
 import MyIconButton from "./MyAppBar/MyIconButton";
 import MyIconButtonMenu from "./MyAppBar/MyIconButtonMenu";
 import MyDrawerList from "./MyDrawer/MyDrawerList";
+import MySpeedDial from "./MySpeedDial";
 
 export {
   MyButton,
@@ -23,5 +24,6 @@ export {
   MyIconButton,
   MyIconButtonMenu,
   MyDrawerList,
+  MySpeedDial,
   
 };

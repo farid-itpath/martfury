@@ -1,6 +1,6 @@
 import { Container, useTheme, Box, Grid } from "@mui/material";
 import { Products } from "../../utils/data";
-import MyCard from "../../Components/MyCard";
+import MyCard from "../../components/MyCard";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {

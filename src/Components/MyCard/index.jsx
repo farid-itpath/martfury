@@ -39,9 +39,11 @@ export default function MyCard(props) {
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button variant="contained">Buy</Button>
-        <AddShoppingCartIcon color="primary" sx={{'&:hover':{
-          color:theme.palette.secondary.main
-        }}}/>
+        <IconButton>
+          <AddShoppingCartIcon color="primary" sx={{'&:hover':{
+            color:theme.palette.secondary.main
+          }}}/>
+        </IconButton>
       </CardActions>
     </Card>
   );

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { MyAppBar, MyDrawer, MyFooter } from "../../Components";
+import { MyAppBar, MyDrawer, MyFooter } from "../../components";
 import { Container, useMediaQuery } from "@mui/material";
 import { useContext } from "react";
 import { DrawerContext } from "../../App";

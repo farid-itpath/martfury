@@ -49,7 +49,7 @@ export default function MyProfileMenu() {
     >
       <MenuItem
         onClick={() => {
-          navigate("/Profile");
+          navigate("/profile");
           handleMenuClose();
         }}
       >
@@ -78,7 +78,12 @@ export default function MyProfileMenu() {
     >
       {ButtonIcons.map((item) => {
         return (
-          <MenuItem key={item.id}>
+          <MenuItem
+            key={item.id}
+            onClick={() => {
+              navigate(item.url)
+            }}
+          >
             <MyIconButton badgeContent={item.badgeContent} icon={item.icon} />
             <Typography variant="h6">{item.name.toUpperCase()}</Typography>
           </MenuItem>
