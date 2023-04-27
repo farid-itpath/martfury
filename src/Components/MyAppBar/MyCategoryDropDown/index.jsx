@@ -5,7 +5,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import styled from "@emotion/styled";
-import { alpha } from "@mui/material";
 
 function BasicSelect() {
   const [category, setCategory] = React.useState("");

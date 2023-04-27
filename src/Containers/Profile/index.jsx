@@ -1,4 +1,4 @@
-import { Box, Button, Container, Divider, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import myPhoto from "./../../assets/images/myphoto.jpeg";
 export default function Profile() {
   return (

@@ -6,7 +6,6 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import MyIconButton from "../MyIconButton";
 import { useNavigate } from "react-router-dom";
 import { ButtonIcons } from "../../../utils/data";
-import { theme } from "../../../themes";
 
 export default function MyProfileMenu() {
   const { anchorEl, setAnchorEl } = useContext(AnchorElContext);

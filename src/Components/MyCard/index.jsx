@@ -4,8 +4,6 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import {
-  Badge,
-  Box,
   Button,
   CardActionArea,
   CardActions,
@@ -14,7 +12,6 @@ import {
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { theme } from "../../themes";
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 export default function MyCard(props) {
   const { name, price, image, onClick } = props;

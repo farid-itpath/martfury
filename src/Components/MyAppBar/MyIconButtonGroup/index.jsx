@@ -1,13 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Box } from "@mui/material";
 
-import { AnchorElContext } from "..";
-import MyIconButton from "../MyIconButton";
 import { ButtonIcons } from "../../../utils/data";
+import MyIconButton from "../MyIconButton";
 
 export default function MyIconButtonGroup() {
-  const { setAnchorEl } = useContext(AnchorElContext);
-  const menuId = "primary-search-account-menu";
   return (
     <Box sx={{ display: { xs: "none", md: "flex" }}}>
       {ButtonIcons.map((item) => {

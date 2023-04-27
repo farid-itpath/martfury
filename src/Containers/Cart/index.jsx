@@ -1,9 +1,8 @@
-import { Box, Button, Container, Divider, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { TempCart } from "../../utils/data";
 import { useTheme } from "@emotion/react";
 
 export default function Cart() {
-  const theme = useTheme();
   return (
     <Container
       sx={{

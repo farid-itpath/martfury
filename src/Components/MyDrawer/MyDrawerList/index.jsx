@@ -1,6 +1,5 @@
 import LabelIcon from "@mui/icons-material/Label";
 import {
-  Badge,
   Box,
   List,
   ListItem,
