@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import Layout from "../layouts/AppLayout";
-import Profile from "../containers/Profile";
-import Home from "../containers/Home";
-import Product from "../containers/Product";
-import Cart from "../containers/Cart";
-import Login from "../containers/Login";
-import SignUp from "../containers/SignUp";
-import Error404 from "../containers/Error404"
+import Layout from "./layouts/AppLayout";
+import Profile from "./containers/Profile";
+import Home from "./containers/Home";
+import Product from "./containers/Product";
+import Cart from "./containers/Cart";
+import Login from "./containers/Login";
+import SignUp from "./containers/SignUp";
+import Error404 from "./containers/Error404"
 
 export default function AppRoutes(){
     return (
