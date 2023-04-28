@@ -8,8 +8,9 @@ export default function AppRoutes(){
             <Route path="/" element={<Layout/>}>
                 <Route path="/" element={<Home/>}/>
                 <Route path="home" element={<Home/>}/>
+                <Route path=":id" element={<Product/>}/>
                 <Route path="profile" element={<Profile/>}/>
-                <Route path="product" element={<Product/>}/>
+                {/* <Route path="product" element={<Product/>}/> */}
                 <Route path="cart" element={<Cart/>}/>
             </Route>
             <Route path="login" element={<Login/>}/>

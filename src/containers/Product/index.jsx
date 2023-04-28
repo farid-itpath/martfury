@@ -8,15 +8,15 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Products } from "../../utils/data";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { MyRating, MyTabs } from "../../components";
 
 export default function Product() {
-  const [searchParams] = useSearchParams();
+  const { id } = useParams();
   const product = Products.find((item) => {
-    return item.id === parseInt(searchParams.get("id"));
+    return item.id === parseInt(id);
   });
   return (
     <Container
@@ -32,7 +32,7 @@ export default function Product() {
         <Grid item xs={12} sm={6}>
           <Card>
             <CardMedia
-              sx={{height: 200, padding: 1, objectFit:'contain' }}
+              sx={{ height: 200, padding: 1, objectFit: "contain" }}
               image={product.image}
               component="img"
             />
@@ -40,7 +40,9 @@ export default function Product() {
               <Button variant="outlined" fullWidth>
                 <AddShoppingCartIcon />
               </Button>
-              <Button variant="contained" fullWidth>Buy Now</Button>
+              <Button variant="contained" fullWidth>
+                Buy Now
+              </Button>
             </CardActions>
           </Card>
         </Grid>
