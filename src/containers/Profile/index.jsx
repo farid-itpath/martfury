@@ -1,6 +1,10 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import myPhoto from "./../../assets/images/myphoto.jpeg";
+import { useNavigate } from "react-router-dom";
+
+import { BackToHome } from "../../components";
 export default function Profile() {
+  const navigate = useNavigate()
   return (
     <Container
       sx={{
@@ -11,6 +15,10 @@ export default function Profile() {
         flexWrap: "wrap",
       }}
     >
+      {/* <Button sx={{ position: "absolute", top: 80, left: { xs: 20, md: 260 } }} onClick={()=>navigate('/')} >
+        <ArrowBackIosIcon />
+      </Button> */}
+      <BackToHome/>
       <Box component="img" src={myPhoto} sx={{ height: 300 }} />
       <Box width={"50%"}>
         <Typography variant="h5" sx={{ mb: 5 }}>

@@ -3,6 +3,7 @@ import "./App.css";
 import AppRoutes from "./routes";
 import { theme } from "./themes";
 import { createContext, useEffect, useState } from "react";
+import { SnackbarProvider } from "notistack";
 export const DrawerContext = createContext();
 function App() {
   const matches = useMediaQuery(theme.breakpoints.up("md"));
@@ -13,11 +14,13 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <DrawerContext.Provider value={{ open, setOpen }}>
-        <div className="App">
-          <AppRoutes />
-        </div>
-      </DrawerContext.Provider>
+      <SnackbarProvider>
+        <DrawerContext.Provider value={{ open, setOpen }}>
+          <div className="App">
+            <AppRoutes />
+          </div>
+        </DrawerContext.Provider>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 }

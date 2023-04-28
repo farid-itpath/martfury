@@ -152,7 +152,7 @@ export const Products = [
     review: 'good product',
   },
   {
-    id: "11",
+    id: 11,
     name: "Samsung Galaxy",
     price: "400",
     rating: 1.5,

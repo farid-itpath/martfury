@@ -11,7 +11,8 @@ import {
 import { useParams } from "react-router-dom";
 import { Products } from "../../utils/data";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { MyRating, MyTabs } from "../../components";
+import { BackToHome, MyRating, MyTabs } from "../../components";
+
 
 export default function Product() {
   const { id } = useParams();
@@ -28,6 +29,7 @@ export default function Product() {
         alignItems: "center",
       }}
     >
+      <BackToHome/>
       <Grid container spacing={4}>
         <Grid item xs={12} sm={6}>
           <Card>

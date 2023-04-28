@@ -11,6 +11,7 @@ import MyDrawerList from "./MyDrawer/MyDrawerList";
 import MySpeedDial from "./MyAppBar/MySpeedDial";
 import MyRating from "./MyRating";
 import MyTabs from "./MyTabs";
+import BackToHome from "./BackToHome";
 
 export {
   MyButton,
@@ -26,4 +27,5 @@ export {
   MySpeedDial,
   MyRating,
   MyTabs,
+  BackToHome,
 };

@@ -9,23 +9,30 @@ import {
   CardActions,
   Divider,
   IconButton,
+  Tooltip,
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { theme } from "../../themes";
-
+import { useSnackbar } from "notistack";
 export default function MyCard(props) {
   const { name, price, image, onClick } = props;
+  const { enqueueSnackbar } = useSnackbar();
+  const [addedToCart, setAddedToCart] = React.useState(false);
   return (
-    <Card >
+    <Card>
       <CardActionArea>
         <CardMedia
           component="img"
           image={image}
-          sx={{height: 200, padding: 1, objectFit: 'contain'}}
+          sx={{ height: 200, padding: 1, objectFit: "contain" }}
         />
       </CardActionArea>
-      <Divider/>
-      <CardContent sx={{display:'flex', justifyContent: 'space-between'}} onClick={onClick}>
+      <Divider />
+      <CardContent
+        sx={{ display: "flex", justifyContent: "space-between" }}
+        onClick={onClick}
+      >
         <Typography variant="body1" component="div">
           {name}
         </Typography>
@@ -35,11 +42,45 @@ export default function MyCard(props) {
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button variant="contained">Buy</Button>
-        <IconButton>
-          <AddShoppingCartIcon color="primary" sx={{'&:hover':{
-            color:theme.palette.secondary.main
-          }}}/>
-        </IconButton>
+        {addedToCart ? (
+          <IconButton
+            onClick={() => {
+              enqueueSnackbar("Item removed from cart.", { variant: "error" });
+              console.log("clicked");
+              setAddedToCart(!addedToCart);
+            }}
+          >
+            <Tooltip title="Remove from Cart">
+              <RemoveShoppingCartIcon
+                color="error"
+                sx={{
+                  "&:hover": {
+                    color: theme.palette.secondary.main,
+                  },
+                }}
+              />
+            </Tooltip>
+          </IconButton>
+        ) : (
+          <IconButton
+            onClick={() => {
+              enqueueSnackbar("Item added to cart.", { variant: "success" });
+              console.log("clicked");
+              setAddedToCart(!addedToCart);
+            }}
+          >
+            <Tooltip title="Add to Cart">
+              <AddShoppingCartIcon
+                color="primary"
+                sx={{
+                  "&:hover": {
+                    color: theme.palette.secondary.main,
+                  },
+                }}
+              />
+            </Tooltip>
+          </IconButton>
+        )}
       </CardActions>
     </Card>
   );
