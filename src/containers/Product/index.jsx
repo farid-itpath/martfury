@@ -1,91 +1,62 @@
 import {
   Box,
+  Button,
   Card,
-  CardActionArea,
   CardActions,
-  CardContent,
   CardMedia,
   Container,
-  Divider,
+  Grid,
   Typography,
 } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import { Products } from "../../utils/data";
-import { useTheme } from "@emotion/react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { MyRating, MyTabs } from "../../components";
 
 export default function Product() {
-  const theme = useTheme();
   const [searchParams] = useSearchParams();
-  const product = Products.find((item) => item.id === searchParams.get("id"));
+  const product = Products.find((item) => {
+    return item.id === parseInt(searchParams.get("id"));
+  });
   return (
     <Container
       sx={{
+        minHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh",
       }}
     >
-      <Card>
-        <Box
-          sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" } }}
-        >
-          <CardActionArea>
+      <Grid container spacing={4}>
+        <Grid item xs={12} sm={6}>
+          <Card>
             <CardMedia
-              component="img"
+              sx={{height: 200, padding: 1, objectFit:'contain' }}
               image={product.image}
-              alt="green iguana"
-              sx={{ maxHeight: 500, padding: 1, objectFit: "contain" }}
+              component="img"
             />
-          </CardActionArea>
-          <CardContent
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Typography gutterBottom variant="h4" component="div">
-                {product.name}
-              </Typography>
-              <Typography gutterBottom variant="body1" component="div">
-                {product.description}
-              </Typography>
-            </Box>
-            <Typography variant="h6" component="span">
-              Price: $ {product.price}
+            <CardActions sx={{ padding: 0 }}>
+              <Button variant="outlined" fullWidth>
+                <AddShoppingCartIcon />
+              </Button>
+              <Button variant="contained" fullWidth>Buy Now</Button>
+            </CardActions>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Box>
+            <Typography variant="h6">{product.name}</Typography>
+            <MyRating value={product.rating} />
+            <Typography variant="h5" sx={{ textAlign: "left" }}>
+              $ {product.price}
             </Typography>
-          </CardContent>
-        </Box>
-        <Divider />
-        <CardActions
-          sx={{ display: "flex", justifyContent: "space-around", padding: 0 }}
-        >
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{
-              backgroundColor: theme.palette.primary.main,
-              width: "50%",
-              paddingY: 1,
-              color: theme.palette.primary.contrastText,
-            }}
-          >
-            Buy Now
-          </Typography>
-          <AddShoppingCartIcon
-            color="primary"
-            sx={{
-              width: "50%",
-              "&:hover": {
-                color: theme.palette.secondary.main,
-              },
-            }}
-          />
-        </CardActions>
-      </Card>
+          </Box>
+        </Grid>
+      </Grid>
+      <Box sx={{ mt: 2, width: "100%" }}>
+        <MyTabs description={product.description} review={product.review} />
+      </Box>
     </Container>
   );
 }

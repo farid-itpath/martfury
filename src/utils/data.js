@@ -55,89 +55,111 @@ export const Products = [
     id: 1,
     name: "Sony Mobile",
     price: "500",
+    rating: 4,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     image: sony,
+    review: 'good product',
   },
   {
     id: 2,
     name: "Table",
     price: "300",
+    rating: 2,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     image: table1,
+    review: 'good product',
   },
   {
     id: 3,
     name: "Executive chair",
     price: "300",
+    rating: 5,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     image: chair1,
+    review: 'good product',
   },
   {
     id: 4,
     name: "Shima Shoes",
     price: "50",
+    rating: 1,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     image: shoes,
+    review: 'good product',
   },
   {
     id: 5,
     name: "Shirt",
     price: "50",
+    rating: 4,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     image: shirt1,
+    review: 'good product',
   },
   {
     id: 6,
     name: "Pants",
     price: "70",
+    rating: 4.5,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     image: pant1,
+    review: 'good product',
   },
   {
     id: 7,
     name: "Sofa",
     price: "70",
+    rating: 3.5,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     image: sofa1,
+    review: 'good product',
   },
   {
     id: 8,
     name: "Dell Laptop",
     price: "1200",
+    rating: 2,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     image: dell,
+    review: 'good product',
   },
   {
     id: 9,
     name: "1+ Smart Watch",
     price: "200",
+    rating: 2.5,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     image: watch,
+    review: 'good product',
   },
   {
     id: 10,
     name: "Chair",
     price: "200",
+    rating: 5,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     image: chair2,
+    review: 'good product',
   },
   {
     id: "11",
     name: "Samsung Galaxy",
     price: "400",
+    rating: 1.5,
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     image: samsung,
+    review: 'good product',
   },
 ];
 

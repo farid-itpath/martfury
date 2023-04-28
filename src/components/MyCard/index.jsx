@@ -21,7 +21,6 @@ export default function MyCard(props) {
         <CardMedia
           component="img"
           image={image}
-          alt="green iguana"
           sx={{height: 200, padding: 1, objectFit: 'contain'}}
         />
       </CardActionArea>

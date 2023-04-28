@@ -1,18 +1,18 @@
-import { useTheme, Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Products } from "../../utils/data";
 import MyCard from "../../components/MyCard";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  const appTheme = useTheme();
+  // const appTheme = useTheme();
   const navigate = useNavigate();
   const handleOnClick = (id) => {
-    navigate("/Product/?id="+id)
+    navigate("/Product?id="+id)
   }
   return (
     <>
       {/* Box for pushing out the content of Home from fixed navbar underneath */}
-      <Box sx={appTheme.mixins.toolbar} />
+      {/* <Box sx={appTheme.mixins.toolbar} /> */}
       <Grid container spacing={2} my={2}>
         {Products.map((item) => {
           return (
