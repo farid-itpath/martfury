@@ -13,6 +13,9 @@ export const theme = createTheme({
     tertiary: {
       main: "#fff",
       contrastText: '#000'
+    },
+    success: {
+      main: "#2e7d32"
     }
   },
 });

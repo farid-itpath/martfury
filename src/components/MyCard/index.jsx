@@ -46,7 +46,6 @@ export default function MyCard(props) {
           <IconButton
             onClick={() => {
               enqueueSnackbar("Item removed from cart.", { variant: "error" });
-              console.log("clicked");
               setAddedToCart(!addedToCart);
             }}
           >

@@ -18,7 +18,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography variant="div">{children}</Typography>
         </Box>
       )}
     </div>
@@ -55,15 +55,21 @@ export default function MyTabs(props) {
           aria-label="basic tabs example"
           variant="fullWidth"
         >
-          <Tab label="Description" {...a11yProps(0)} />
-          <Tab label="Reviews" {...a11yProps(1)} />
+          <Tab label="Reviews" {...a11yProps(0)} />
+          <Tab label="Description" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        {description}
+        {review}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {review}
+        Introducing the revolutionary [product name], designed to make your life
+        easier and more enjoyable. With its cutting-edge technology and sleek
+        design, this product is sure to impress. Whether you're a busy
+        professional or a tech-savvy individual, [product name] is the perfect
+        solution for your needs. It's durable, reliable, and will exceed your
+        expectations in every way possible.
+        {description}
       </TabPanel>
     </Box>
   );

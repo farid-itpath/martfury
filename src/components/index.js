@@ -12,6 +12,8 @@ import MySpeedDial from "./MyAppBar/MySpeedDial";
 import MyRating from "./MyRating";
 import MyTabs from "./MyTabs";
 import BackToHome from "./BackToHome";
+import ItemCount from "./ItemCount";
+import ReviewItem from "./ReviewItem";
 
 export {
   MyButton,
@@ -28,4 +30,6 @@ export {
   MyRating,
   MyTabs,
   BackToHome,
+  ItemCount,
+  ReviewItem,
 };
