@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Card,
-  CardActions,
   CardMedia,
   Container,
   Divider,
@@ -10,7 +9,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { Products } from "../../utils/data";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import {
@@ -20,17 +18,34 @@ import {
   MyTabs,
   ReviewItem,
 } from "../../components";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "@emotion/react";
 import { enqueueSnackbar } from "notistack";
+import { api } from "../../api";
 
 export default function Product() {
   const [count, setCount] = React.useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [product, setProduct] = useState({});
   const { id } = useParams();
-  const product = Products.find((item) => {
-    return item.id === parseInt(id);
-  });
+
+  useEffect(() => {
+    api.product
+      .getProductById(id)
+      .then((response) => setProduct(response.data.product))
+      .catch((e) => console.log("Server Error --- ", e));
+  }, []);
+
+  useEffect(() => {
+    api.cart
+      .get(localStorage.getItem("loggedInUser"))
+      .then((response) =>
+        response.data.usercart.find((item) => item.product_id === parseInt(id))
+          ? setAddedToCart(true)
+          : setAddedToCart(false)
+      );
+  }, []);
+
   const theme = useTheme();
   return (
     <Container
@@ -48,17 +63,12 @@ export default function Product() {
           <Card>
             <CardMedia
               sx={{ height: 200, padding: 1, objectFit: "contain" }}
-              image={product.image}
+              image={
+                product.image &&
+                "https://ecommerceserver-4zw1.onrender.com/" + product.image
+              }
               component="img"
             />
-            {/* <CardActions sx={{ padding: 0 }}>
-              <Button variant="outlined" fullWidth>
-                <AddShoppingCartIcon />
-              </Button>
-              <Button variant="contained" fullWidth>
-                Buy Now
-              </Button>
-            </CardActions> */}
           </Card>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -75,29 +85,34 @@ export default function Product() {
               {addedToCart ? (
                 <Button
                   variant="outlined"
-                  disabled={count > 9 ? true : false}
-                  onClick={() => {
-                    enqueueSnackbar("Item added to cart!", {
-                      variant: "success",
-                    });
-                    setAddedToCart(!addedToCart);
-                  }}
-                >
-                  <AddShoppingCartIcon />
-                </Button>
-              ) : (
-                <Button
-                  variant="outlined"
                   color="error"
                   disabled={count > 9 ? true : false}
                   onClick={() => {
                     enqueueSnackbar("Item removed from cart!", {
                       variant: "error",
                     });
+                    api.cart.remove(localStorage.getItem("loggedInUser"), id);
                     setAddedToCart(!addedToCart);
                   }}
                 >
                   <RemoveShoppingCartIcon />
+                </Button>
+              ) : (
+                <Button
+                  variant="outlined"
+                  disabled={count > 9 ? true : false}
+                  onClick={() => {
+                    enqueueSnackbar("Item added to cart!", {
+                      variant: "success",
+                    });
+                    api.cart.add({
+                      user_id: localStorage.getItem("loggedInUser"),
+                      product_id: id,
+                    });
+                    setAddedToCart(!addedToCart);
+                  }}
+                >
+                  <AddShoppingCartIcon />
                 </Button>
               )}
             </Box>

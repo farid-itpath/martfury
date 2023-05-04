@@ -1,9 +1,37 @@
 import { Container, Paper, Typography } from "@mui/material";
 import { MyButton, MyTextField } from "../../components";
 import { theme } from "../../themes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { api } from "../../api";
+import { useSnackbar } from "notistack";
 
 export default function SignUp() {
+  const [formData, setFormData] = useState();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+  const handleSignUp = () => {
+    api.auth
+      .register(formData)
+      .then((response) => {
+        if (response.status === 201) {
+          enqueueSnackbar("You have been registered successfully!", {
+            variant: "success",
+          });
+        } else {
+          console.log("Registration failed!");
+        }
+      })
+      .catch((e) => {
+        console.log("Server Error --- ", e);
+        enqueueSnackbar(
+          "There was an error while registering you. Please try later!",
+          {
+            variant: "error",
+          }
+        );
+      });
+  };
   return (
     <Container
       sx={{
@@ -15,11 +43,30 @@ export default function SignUp() {
     >
       <Paper sx={{ boxShadow: 5, padding: 5 }}>
         <Typography variant="h4">Sign Up</Typography>
-        <MyTextField label="Enter Username" />
-        <MyTextField label="Enter Email" />
-        <MyTextField label="Enter Password" />
+        <MyTextField
+          label="Enter Firstname"
+          onChange={(e) =>
+            setFormData({ ...formData, firstName: e.target.value })
+          }
+        />
+        <MyTextField
+          label="Enter Lastname"
+          onChange={(e) =>
+            setFormData({ ...formData, lastName: e.target.value })
+          }
+        />
+        <MyTextField
+          label="Enter Email"
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+        />
+        <MyTextField
+          label="Enter Password"
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
+        />
         <MyTextField label="Enter Confirm Password" />
-        <MyButton type="primary" title="Sign Up" />
+        <MyButton type="primary" title="Sign Up" onClick={handleSignUp} />
         <Typography>Already have an account?</Typography>
         <Link to="/login">
           <Typography

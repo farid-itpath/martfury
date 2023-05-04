@@ -3,7 +3,7 @@ import { theme } from "../../themes";
 import { TextField } from "@mui/material";
 
 export default function MyTextField(props) {
-  const { label } = props;
+  const { label, onChange } = props;
   return (
     <Box
       component="form"
@@ -18,6 +18,7 @@ export default function MyTextField(props) {
         label={label}
         variant="outlined"
         sx={{ ":focus-visible": { outlineStyle: theme.palette.primary.main } }}
+        onChange={onChange}
       />
     </Box>
   );

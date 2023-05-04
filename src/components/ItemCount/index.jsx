@@ -4,7 +4,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import { TextField } from "@mui/material";
 
 export default function ItemCount(props) {
-  const {count, setCount} = props
+  const { count, setCount } = props;
   return (
     <ButtonGroup variant="contained" aria-label="outlined primary button group">
       <Button
@@ -16,8 +16,8 @@ export default function ItemCount(props) {
       <TextField
         variant="outlined"
         value={count}
-        onChange={(e)=>setCount(e.target.value)}
-        sx={{width:50}}
+        onChange={(e) => setCount(e.target.value)}
+        sx={{ width: 50 }}
       />
       <Button onClick={() => setCount(count + 1)}>+</Button>
     </ButtonGroup>

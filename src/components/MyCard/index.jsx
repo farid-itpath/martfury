@@ -10,33 +10,53 @@ import {
   Divider,
   IconButton,
   Tooltip,
+  styled,
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { theme } from "../../themes";
 import { useSnackbar } from "notistack";
+import { UserContext } from "../../App";
+import { api } from "../../api";
+
+const ProductName = styled("div")({
+  // display:'inline-block',
+  // width: 50,
+  overflow: "hidden",
+  "::after": {
+    content: `'...'`,
+  },
+});
+
 export default function MyCard(props) {
-  const { name, price, image, onClick } = props;
+  const { name, price, image, onClick, inCart } = props;
   const { enqueueSnackbar } = useSnackbar();
   const [addedToCart, setAddedToCart] = React.useState(false);
+  const { loggedInUser } = React.useContext(UserContext);
+
+  React.useEffect(() => {
+    setAddedToCart(inCart);
+  }, [inCart]);
+
   return (
     <Card>
       <CardActionArea>
         <CardMedia
           component="img"
-          image={image}
+          image={"https://ecommerceserver-4zw1.onrender.com/" + image}
           sx={{ height: 200, padding: 1, objectFit: "contain" }}
         />
       </CardActionArea>
       <Divider />
       <CardContent
-        sx={{ display: "flex", justifyContent: "space-between" }}
+        sx={{ whiteSpace: "nowrap", overflow: "hidden" }}
         onClick={onClick}
       >
-        <Typography variant="body1" component="div">
+        <Typography variant="subtitle2" component="div">
           {name}
         </Typography>
-        <Typography variant="body1" component="span">
+        {/* <ProductName>{name}</ProductName> */}
+        <Typography variant="subtitle1" component="span">
           $ {price}
         </Typography>
       </CardContent>
@@ -46,6 +66,7 @@ export default function MyCard(props) {
           <IconButton
             onClick={() => {
               enqueueSnackbar("Item removed from cart.", { variant: "error" });
+              api.cart.remove(localStorage.getItem("loggedInUser"), props.id);
               setAddedToCart(!addedToCart);
             }}
           >
@@ -64,7 +85,7 @@ export default function MyCard(props) {
           <IconButton
             onClick={() => {
               enqueueSnackbar("Item added to cart.", { variant: "success" });
-              console.log("clicked");
+              api.cart.add({ user_id: loggedInUser, product_id: props.id });
               setAddedToCart(!addedToCart);
             }}
           >

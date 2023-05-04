@@ -1,51 +1,28 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { TempCart } from "../../utils/data";
+import BackToHome from "../../components/BackToHome";
+import CartTable from "../../components/CartTable";
+import { useEffect, useState } from "react";
+import { api } from "../../api";
 
 export default function Cart() {
+  const [cartData, setCartData] = useState([]);
+
+  useEffect(() => {
+    api.cart
+      .get(localStorage.getItem("loggedInUser"))
+      .then((response) => setCartData(response.data.usercart))
+      .catch((e) => console.log("server error --- ", e));
+  }, []);
+
   return (
     <Container
       sx={{
-        display: "flex",
-        justifyContent: "space-around",
-        alignItems: "center",
         minHeight: "100vh",
       }}
     >
-      <Box>
-        {TempCart.map((item) => {
-          return (
-            <Box key={item.id} sx={{ display: "flex", borderBottom: 1 }}>
-              <Box
-                component="img"
-                src={item.image}
-                sx={{ height: 100, width: "30%" }}
-              />
-              <Box
-                sx={{
-                  width: "70%",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "start",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Typography>{item.name}</Typography>
-                  <Typography>Rating: 5</Typography>
-                </Box>
-                <Box>
-                  <Box>Quantity: 4</Box>
-                  <Box>Price: $ {item.price}</Box>
-                </Box>
-              </Box>
-            </Box>
-          );
-        })}
-      </Box>
+      <BackToHome />
+      <CartTable header={["Product", "Quantity", "Price"]} data={cartData} />
       <Box width={"50%"}>
         <Typography variant="h5" sx={{ mb: 5 }}>
           Bill
