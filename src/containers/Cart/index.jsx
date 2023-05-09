@@ -1,5 +1,4 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import { TempCart } from "../../utils/data";
 import BackToHome from "../../components/BackToHome";
 import CartTable from "../../components/CartTable";
 import { useEffect, useState } from "react";

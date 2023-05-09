@@ -22,9 +22,12 @@ import React, { useEffect, useState } from "react";
 import { useTheme } from "@emotion/react";
 import { enqueueSnackbar } from "notistack";
 import { api } from "../../api";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Product() {
-  const [count, setCount] = React.useState(1);
+  // const [count, setCount] = React.useState(1);
+  const count = useSelector(state=>state.counter.value)
+
   const [addedToCart, setAddedToCart] = useState(false);
   const [product, setProduct] = useState({});
   const { id } = useParams();
@@ -81,7 +84,7 @@ export default function Product() {
             <Box
               sx={{ display: "flex", justifyContent: "space-around", my: 2 }}
             >
-              <ItemCount count={count} setCount={setCount} />
+              <ItemCount />
               {addedToCart ? (
                 <Button
                   variant="outlined"
