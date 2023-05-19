@@ -12,7 +12,7 @@ export default function Home() {
   const cartData = useSelector((state) => state.cart.cartData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const handleOnClick = (id) => {
     navigate("/" + id);
   };

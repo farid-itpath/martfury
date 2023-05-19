@@ -15,7 +15,6 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { theme } from "../../themes";
 import { useSnackbar } from "notistack";
-import { api } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../redux/reducers/cartSlice";
 

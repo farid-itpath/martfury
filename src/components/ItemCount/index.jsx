@@ -3,14 +3,13 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import useFetch from "../../hooks/useFetch";
 import { updateCartItem } from "../../redux/reducers/cartSlice";
 
 export default function ItemCount(props) {
   const { productId } = props;
   const user = useSelector((state) => state.auth.user);
   const cart = useSelector((state) => state.cart.cartData);
-  const cartItem = cart.find((item) => item.product_id == productId);
+  const cartItem = cart.find((item) => item.product_id === productId);
   const [count, setCount] = React.useState(cartItem?.qty);
   const dispatch = useDispatch();
   return (

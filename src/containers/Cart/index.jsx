@@ -2,20 +2,15 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import BackToHome from "../../components/BackToHome";
 import CartTable from "../../components/CartTable";
 import { useEffect, useState } from "react";
-import { api } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartData } from "../../redux/reducers/cartSlice";
 
 export default function Cart() {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
-  const [total, setTotal] = useState(0);
+  const [total] = useState(0);
   const cartData = useSelector((state) => state.cart.cartData);
   useEffect(() => {
-    //     setTotal(
-    //       response.data.usercart.reduce((total, item) => {
-    //         return total + item.Product.price;
-    //       }, 0)
     dispatch(fetchCartData({ userId: user.user.id, token: user.token }));
   }, []);
 

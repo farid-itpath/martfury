@@ -13,7 +13,6 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import {
   BackToHome,
-  ItemCount,
   MyRating,
   MyTabs,
   ReviewItem,
@@ -21,9 +20,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useTheme } from "@emotion/react";
 import { enqueueSnackbar } from "notistack";
-import { api } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductById } from "../../redux/reducers/productSlice";
 import {
   addToCart,
   fetchCartData,
@@ -55,7 +52,6 @@ export default function Product() {
       : setAddedToCart(false);
   }, [cartData]);
 
-  const theme = useTheme();
   return (
     <Container
       sx={{
