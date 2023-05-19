@@ -1,10 +1,10 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import myPhoto from "./../../assets/images/myphoto.jpeg";
-import { useNavigate } from "react-router-dom";
 
 import { BackToHome } from "../../components";
+import { useSelector } from "react-redux";
 export default function Profile() {
-  const navigate = useNavigate()
+  const user = useSelector((state) => state.auth.user);
   return (
     <Container
       sx={{
@@ -15,10 +15,7 @@ export default function Profile() {
         flexWrap: "wrap",
       }}
     >
-      {/* <Button sx={{ position: "absolute", top: 80, left: { xs: 20, md: 260 } }} onClick={()=>navigate('/')} >
-        <ArrowBackIosIcon />
-      </Button> */}
-      <BackToHome/>
+      <BackToHome />
       <Box component="img" src={myPhoto} sx={{ height: 300 }} />
       <Box width={"50%"}>
         <Typography variant="h5" sx={{ mb: 5 }}>
@@ -33,13 +30,13 @@ export default function Profile() {
         >
           <Box>
             <Typography variant="body1">Name</Typography>
-            <Typography variant="body1">Contact No.</Typography>
             <Typography variant="body">email</Typography>
           </Box>
           <Box>
-            <Typography variant="body1">Farid</Typography>
-            <Typography variant="body1">1234567789</Typography>
-            <Typography variant="body">farid@gmail.com</Typography>
+            <Typography variant="body1">
+              {user.user.firstName + " " + user.user.lastName}
+            </Typography>
+            <Typography variant="body">{user.user.email}</Typography>
           </Box>
         </Box>
         <Button variant="contained" sx={{ width: "100%" }}>

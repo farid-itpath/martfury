@@ -4,19 +4,18 @@ import MyButton from "../../components/MyButton";
 import { theme } from "../../themes";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../api";
-import { useContext, useState } from "react";
-import { UserContext } from "../../App";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createUser } from "../../redux/reducers/authSlice";
 export default function Login() {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState();
-  const { setLoggedInUser } = useContext(UserContext);
   const navigate = useNavigate();
   const handleLogin = () => {
     api.auth
       .login(formData)
       .then((response) => {
-        localStorage.setItem("loggedInUser", response.data.user.id);
-        localStorage.setItem("token", response.data.token);
-        setLoggedInUser(response.data.user.id);
+        dispatch(createUser(response.data));
         navigate("/");
       })
       .catch((e) => console.log("Something went wrong!", e));

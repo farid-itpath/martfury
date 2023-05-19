@@ -3,16 +3,29 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment, set } from "../../redux/reducers/counterSlice";
+import useFetch from "../../hooks/useFetch";
+import { updateCartItem } from "../../redux/reducers/cartSlice";
 
 export default function ItemCount(props) {
-  // const { count, setCount } = props;
-  const count = useSelector((state) => state.counter.value);
+  const { productId } = props;
+  const user = useSelector((state) => state.auth.user);
+  const cart = useSelector((state) => state.cart.cartData);
+  const cartItem = cart.find((item) => item.product_id == productId);
+  const [count, setCount] = React.useState(cartItem?.qty);
   const dispatch = useDispatch();
   return (
     <ButtonGroup variant="contained" aria-label="outlined primary button group">
       <Button
-        onClick={() => dispatch(decrement())}
+        onClick={() => {
+          setCount(parseInt(count) - 1);
+          dispatch(
+            updateCartItem({
+              cartId: cartItem.id,
+              token: user.token,
+              qty: parseInt(count) - 1,
+            })
+          );
+        }}
         disabled={count < 2 ? true : false}
       >
         -
@@ -20,10 +33,32 @@ export default function ItemCount(props) {
       <TextField
         variant="outlined"
         value={count}
-        onChange={(e) => dispatch(set(e.target.value))}
-        sx={{ width: 50 }}
+        onChange={(e) => {
+          setCount(e.target.value);
+          dispatch(
+            updateCartItem({
+              cartId: cartItem.id,
+              token: user.token,
+              qty: e.target.value,
+            })
+          );
+        }}
+        sx={{ width: 100 }}
       />
-      <Button onClick={() => dispatch(increment())}>+</Button>
+      <Button
+        onClick={() => {
+          setCount(parseInt(count) + 1);
+          dispatch(
+            updateCartItem({
+              cartId: cartItem.id,
+              token: user.token,
+              qty: parseInt(count) + 1,
+            })
+          );
+        }}
+      >
+        +
+      </Button>
     </ButtonGroup>
   );
 }

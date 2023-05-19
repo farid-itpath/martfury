@@ -23,31 +23,37 @@ import { useTheme } from "@emotion/react";
 import { enqueueSnackbar } from "notistack";
 import { api } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchProductById } from "../../redux/reducers/productSlice";
+import {
+  addToCart,
+  fetchCartData,
+  removeFromCart,
+} from "../../redux/reducers/cartSlice";
+import useFetch from "../../hooks/useFetch";
 
 export default function Product() {
-  // const [count, setCount] = React.useState(1);
-  const count = useSelector(state=>state.counter.value)
+  const { id } = useParams();
+  const user = useSelector((state) => state.auth.user);
+
+  const { data } = useFetch({
+    initialUrl: `/api/product/getproductbyid/${id}`,
+  });
+  const product = data?.product;
+  const dispatch = useDispatch();
 
   const [addedToCart, setAddedToCart] = useState(false);
-  const [product, setProduct] = useState({});
-  const { id } = useParams();
+
+  const cartData = useSelector((state) => state.cart.cartData);
 
   useEffect(() => {
-    api.product
-      .getProductById(id)
-      .then((response) => setProduct(response.data.product))
-      .catch((e) => console.log("Server Error --- ", e));
+    dispatch(fetchCartData({ userId: user.user.id, token: user.token }));
   }, []);
 
   useEffect(() => {
-    api.cart
-      .get(localStorage.getItem("loggedInUser"))
-      .then((response) =>
-        response.data.usercart.find((item) => item.product_id === parseInt(id))
-          ? setAddedToCart(true)
-          : setAddedToCart(false)
-      );
-  }, []);
+    cartData?.find((item) => item.product_id === parseInt(id))
+      ? setAddedToCart(true)
+      : setAddedToCart(false);
+  }, [cartData]);
 
   const theme = useTheme();
   return (
@@ -67,8 +73,8 @@ export default function Product() {
             <CardMedia
               sx={{ height: 200, padding: 1, objectFit: "contain" }}
               image={
-                product.image &&
-                "https://ecommerceserver-4zw1.onrender.com/" + product.image
+                product?.image &&
+                "https://ecommerceserver-4zw1.onrender.com/" + product?.image
               }
               component="img"
             />
@@ -76,25 +82,30 @@ export default function Product() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Box>
-            <Typography variant="h6">{product.name}</Typography>
+            <Typography variant="h6">{product?.name}</Typography>
             <Divider />
-            <MyRating value={product.rating} />
+            <MyRating value={product?.rating} />
             <Typography variant="caption">4 Reviews</Typography>
             <Divider />
             <Box
               sx={{ display: "flex", justifyContent: "space-around", my: 2 }}
             >
-              <ItemCount />
               {addedToCart ? (
                 <Button
                   variant="outlined"
                   color="error"
-                  disabled={count > 9 ? true : false}
                   onClick={() => {
                     enqueueSnackbar("Item removed from cart!", {
                       variant: "error",
                     });
-                    api.cart.remove(localStorage.getItem("loggedInUser"), id);
+                    // api.cart.remove(localStorage.getItem("loggedInUser"), id);
+                    dispatch(
+                      removeFromCart({
+                        user_id: user.user.id,
+                        product_id: id,
+                        token: user.token,
+                      })
+                    );
                     setAddedToCart(!addedToCart);
                   }}
                 >
@@ -103,15 +114,21 @@ export default function Product() {
               ) : (
                 <Button
                   variant="outlined"
-                  disabled={count > 9 ? true : false}
                   onClick={() => {
                     enqueueSnackbar("Item added to cart!", {
                       variant: "success",
                     });
-                    api.cart.add({
-                      user_id: localStorage.getItem("loggedInUser"),
-                      product_id: id,
-                    });
+                    // api.cart.add({
+                    //   user_id: localStorage.getItem("loggedInUser"),
+                    //   product_id: id,
+                    // });
+                    dispatch(
+                      addToCart({
+                        user_id: user.user.id,
+                        product_id: id,
+                        token: user.token,
+                      })
+                    );
                     setAddedToCart(!addedToCart);
                   }}
                 >
@@ -120,7 +137,7 @@ export default function Product() {
               )}
             </Box>
             <Divider />
-            {count < 10 ? (
+            {/* {count < 10 ? (
               <Typography variant="body1" color={theme.palette.success.main}>
                 In Stock
               </Typography>
@@ -128,14 +145,12 @@ export default function Product() {
               <Typography variant="body1" color="error">
                 Out of Stock
               </Typography>
-            )}
-            <Divider />
-            <Typography variant="h5">$ {product.price * count}</Typography>
+            )} */}
           </Box>
         </Grid>
       </Grid>
       <Box sx={{ mt: 2, width: "100%" }}>
-        <MyTabs description={product.description} review={<ReviewItem />} />
+        <MyTabs description={product?.description} review={<ReviewItem />} />
       </Box>
     </Container>
   );

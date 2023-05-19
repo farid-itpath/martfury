@@ -18,6 +18,7 @@ export default function SignUp() {
           enqueueSnackbar("You have been registered successfully!", {
             variant: "success",
           });
+          navigate("/login");
         } else {
           console.log("Registration failed!");
         }

@@ -3,15 +3,20 @@ import BackToHome from "../../components/BackToHome";
 import CartTable from "../../components/CartTable";
 import { useEffect, useState } from "react";
 import { api } from "../../api";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCartData } from "../../redux/reducers/cartSlice";
 
 export default function Cart() {
-  const [cartData, setCartData] = useState([]);
-
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const [total, setTotal] = useState(0);
+  const cartData = useSelector((state) => state.cart.cartData);
   useEffect(() => {
-    api.cart
-      .get(localStorage.getItem("loggedInUser"))
-      .then((response) => setCartData(response.data.usercart))
-      .catch((e) => console.log("server error --- ", e));
+    //     setTotal(
+    //       response.data.usercart.reduce((total, item) => {
+    //         return total + item.Product.price;
+    //       }, 0)
+    dispatch(fetchCartData({ userId: user.user.id, token: user.token }));
   }, []);
 
   return (
@@ -22,7 +27,7 @@ export default function Cart() {
     >
       <BackToHome />
       <CartTable header={["Product", "Quantity", "Price"]} data={cartData} />
-      <Box width={"50%"}>
+      <Box sx={{ padding: 5 }}>
         <Typography variant="h5" sx={{ mb: 5 }}>
           Bill
         </Typography>
@@ -39,11 +44,11 @@ export default function Cart() {
             <Typography variant="h6">Payable Amount</Typography>
           </Box>
           <Box>
-            <Typography variant="body1">$ 2000</Typography>
+            <Typography variant="body1">$ {total}</Typography>
             <Typography variant="body1" color={"error"}>
-              - $ 400
+              - $ {total * 0.025}
             </Typography>
-            <Typography variant="h6">$ 1600</Typography>
+            <Typography variant="h6">{total - total * 0.025}</Typography>
           </Box>
         </Box>
         <Button variant="contained" sx={{ width: "100%" }}>

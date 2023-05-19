@@ -1,36 +1,30 @@
 import { Grid } from "@mui/material";
-import { Products } from "../../utils/data";
 import MyCard from "../../components/MyCard";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { api } from "../../api";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Loading } from "../../components";
+import { fetchProducts } from "../../redux/reducers/productSlice";
+import { fetchCartData } from "../../redux/reducers/cartSlice";
 export default function Home() {
+  const user = useSelector((state) => state.auth.user);
+  const products = useSelector((state) => state.product.products);
+  const cartData = useSelector((state) => state.cart.cartData);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
-  const [cartData, setCartData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const handleOnClick = (id) => {
     navigate("/" + id);
   };
 
   useEffect(() => {
-    api.product
-      .get()
-      .then((response) => {
-        setProducts(response.data.productlist);
-      })
-      .catch((e) => console.log(e));
-  }, []);
-
-  useEffect(() => {
-    api.cart
-      .get(localStorage.getItem("loggedInUser"))
-      .then((response) => setCartData(response.data.usercart))
-      .catch((e) => console.log("Server Error ---- ", e));
+    dispatch(fetchProducts());
+    dispatch(fetchCartData({ userId: user.user.id, token: user.token }));
   }, []);
 
   return (
     <>
+      {loading && <Loading />}
       <Grid container spacing={2} my={2}>
         {products.map((item) => {
           return (
@@ -42,7 +36,7 @@ export default function Home() {
                 image={item.image}
                 onClick={() => handleOnClick(item.id)}
                 inCart={
-                  cartData.find((product) => product.product_id === item.id)
+                  cartData?.find((product) => product.product_id === item.id)
                     ? true
                     : false
                 }

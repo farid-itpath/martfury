@@ -15,6 +15,7 @@ import BackToHome from "./BackToHome";
 import ItemCount from "./ItemCount";
 import ReviewItem from "./ReviewItem";
 import CartTable from "./CartTable";
+import Loading from "./Loading";
 
 export {
   MyButton,
@@ -34,4 +35,5 @@ export {
   ItemCount,
   ReviewItem,
   CartTable,
+  Loading,
 };

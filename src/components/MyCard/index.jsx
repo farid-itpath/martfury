@@ -10,29 +10,21 @@ import {
   Divider,
   IconButton,
   Tooltip,
-  styled,
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { theme } from "../../themes";
 import { useSnackbar } from "notistack";
-import { UserContext } from "../../App";
 import { api } from "../../api";
-
-const ProductName = styled("div")({
-  // display:'inline-block',
-  // width: 50,
-  overflow: "hidden",
-  "::after": {
-    content: `'...'`,
-  },
-});
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "../../redux/reducers/cartSlice";
 
 export default function MyCard(props) {
   const { name, price, image, onClick, inCart } = props;
   const { enqueueSnackbar } = useSnackbar();
   const [addedToCart, setAddedToCart] = React.useState(false);
-  const { loggedInUser } = React.useContext(UserContext);
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     setAddedToCart(inCart);
@@ -55,7 +47,6 @@ export default function MyCard(props) {
         <Typography variant="subtitle2" component="div">
           {name}
         </Typography>
-        {/* <ProductName>{name}</ProductName> */}
         <Typography variant="subtitle1" component="span">
           $ {price}
         </Typography>
@@ -66,7 +57,14 @@ export default function MyCard(props) {
           <IconButton
             onClick={() => {
               enqueueSnackbar("Item removed from cart.", { variant: "error" });
-              api.cart.remove(localStorage.getItem("loggedInUser"), props.id);
+              // api.cart.remove(user.user.id, props.id, user.token);
+              dispatch(
+                removeFromCart({
+                  user_id: user.user.id,
+                  product_id: props.id,
+                  token: user.token,
+                })
+              );
               setAddedToCart(!addedToCart);
             }}
           >
@@ -85,7 +83,13 @@ export default function MyCard(props) {
           <IconButton
             onClick={() => {
               enqueueSnackbar("Item added to cart.", { variant: "success" });
-              api.cart.add({ user_id: loggedInUser, product_id: props.id });
+              dispatch(
+                addToCart({
+                  user_id: user.user.id,
+                  product_id: props.id,
+                  token: user.token,
+                })
+              );
               setAddedToCart(!addedToCart);
             }}
           >
