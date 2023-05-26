@@ -8,9 +8,14 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box, Typography } from "@mui/material";
 import ItemCount from "../ItemCount";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCartData, removeFromCart } from "../../redux/reducers/cartSlice";
+import { enqueueSnackbar } from "notistack";
 
 export default function CartTable(props) {
   const { header, data } = props;
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -45,6 +50,25 @@ export default function CartTable(props) {
                     $ {row.Product.price}
                   </Typography>
                   <Typography
+                    onClick={() =>
+                      dispatch(
+                        removeFromCart({
+                          user_id: user.user.id,
+                          product_id: row.Product.id,
+                          token: user.token,
+                        })
+                      ).then((response) =>
+                        dispatch(
+                          fetchCartData({
+                            userId: user.user.id,
+                            token: user.token,
+                          }),
+                          enqueueSnackbar(response.payload.data.message, {
+                            variant: "success",
+                          })
+                        )
+                      )
+                    }
                     variant="caption"
                     sx={{ color: "red", display: "block" }}
                   >

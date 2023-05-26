@@ -1,16 +1,19 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { MyAppBar, MyDrawer, MyFooter } from "../../components";
 import { Box, Container, useMediaQuery } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DrawerContext } from "../../App";
 import { DRAWER_WIDTH } from "../../utils/consts";
 import { theme } from "../../themes";
 import { useTheme } from "@emotion/react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../../redux/reducers/authSlice";
 
 export default function Layout() {
   const appTheme = useTheme();
   const { open } = useContext(DrawerContext);
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const user = useSelector((state) => state.auth.user);
   return (
     <>
       <MyAppBar />
@@ -24,7 +27,7 @@ export default function Layout() {
         }}
       >
         <Box sx={appTheme.mixins.toolbar} />
-        <Outlet />
+        {user ? <Outlet /> : <Navigate to={"/login"} />}
       </Container>
       <MyFooter />
     </>

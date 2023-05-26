@@ -18,7 +18,7 @@ import watch from "./../assets/images/watch.jpeg";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export const ButtonIcons = [
-  { id: 1, name: "home", url: "home", icon: <HomeIcon /> },
+  { id: 1, name: "home", url: "", icon: <HomeIcon /> },
   {
     id: 2,
     name: "cart",

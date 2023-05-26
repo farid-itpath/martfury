@@ -14,11 +14,11 @@ export const api = {
         data: params,
         method: METHODS.POST,
       }),
-    profile: (user) =>
+    profile: (token) =>
       client({
         url: "/api/customer/profile",
         method: METHODS.GET,
-        headers: { Authorization: `Bearer ${user}` },
+        headers: { Authorization: `Bearer ${token}` },
       }),
   },
   product: {

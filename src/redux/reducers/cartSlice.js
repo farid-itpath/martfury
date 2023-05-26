@@ -7,7 +7,12 @@ export const fetchCartData = createAsyncThunk(
     try {
       const response = await api.cart.get(data);
       return response.data.usercart;
-    } catch (e) {}
+    } catch (e) {
+      if (e.status === 401) {
+        localStorage.clear();
+        window.location.reload();
+      }
+    }
   }
 );
 
@@ -15,7 +20,12 @@ export const addToCart = createAsyncThunk("cart/addToCart", async (data) => {
   try {
     const response = await api.cart.add(data);
     return response;
-  } catch (e) {}
+  } catch (e) {
+    if (e.status === 401) {
+      localStorage.clear();
+      window.location.reload();
+    }
+  }
 });
 
 export const removeFromCart = createAsyncThunk(
@@ -24,7 +34,12 @@ export const removeFromCart = createAsyncThunk(
     try {
       const response = await api.cart.remove(data);
       return response;
-    } catch (e) {}
+    } catch (e) {
+      if (e.status === 401) {
+        localStorage.clear();
+        window.location.reload();
+      }
+    }
   }
 );
 
@@ -34,7 +49,12 @@ export const updateCartItem = createAsyncThunk(
     try {
       const response = await api.cart.update(data);
       return response;
-    } catch (e) {}
+    } catch (e) {
+      if (e.status === 401) {
+        localStorage.clear();
+        window.location.reload();
+      }
+    }
   }
 );
 

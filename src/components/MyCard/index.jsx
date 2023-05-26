@@ -16,7 +16,11 @@ import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { theme } from "../../themes";
 import { useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../../redux/reducers/cartSlice";
+import {
+  addToCart,
+  fetchCartData,
+  removeFromCart,
+} from "../../redux/reducers/cartSlice";
 
 export default function MyCard(props) {
   const { name, price, image, onClick, inCart } = props;
@@ -88,7 +92,12 @@ export default function MyCard(props) {
                   product_id: props.id,
                   token: user.token,
                 })
-              );
+              )
+              // .then(
+              //   dispatch(
+              //     fetchCartData({ userId: user.user.id, token: user.token })
+              //   )
+              // );
               setAddedToCart(!addedToCart);
             }}
           >

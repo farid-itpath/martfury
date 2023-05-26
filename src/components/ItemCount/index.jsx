@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCartItem } from "../../redux/reducers/cartSlice";
+import { fetchCartData, updateCartItem } from "../../redux/reducers/cartSlice";
 
 export default function ItemCount(props) {
   const { productId } = props;
@@ -23,6 +23,8 @@ export default function ItemCount(props) {
               token: user.token,
               qty: parseInt(count) - 1,
             })
+          ).then(() =>
+            dispatch(fetchCartData({ userId: user.user.id, token: user.token }))
           );
         }}
         disabled={count < 2 ? true : false}
@@ -33,13 +35,17 @@ export default function ItemCount(props) {
         variant="outlined"
         value={count}
         onChange={(e) => {
-          setCount(e.target.value);
+          const v =
+            parseInt(e.target.value) < 0 ? parseInt(e.target.value) * (-1) : e.target.value;
+          setCount(v);
           dispatch(
             updateCartItem({
               cartId: cartItem.id,
               token: user.token,
-              qty: e.target.value,
+              qty: v,
             })
+          ).then(() =>
+            dispatch(fetchCartData({ userId: user.user.id, token: user.token }))
           );
         }}
         sx={{ width: 100 }}
@@ -53,6 +59,8 @@ export default function ItemCount(props) {
               token: user.token,
               qty: parseInt(count) + 1,
             })
+          ).then(() =>
+            dispatch(fetchCartData({ userId: user.user.id, token: user.token }))
           );
         }}
       >
