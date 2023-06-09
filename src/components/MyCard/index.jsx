@@ -21,6 +21,7 @@ import {
   fetchCartData,
   removeFromCart,
 } from "../../redux/reducers/cartSlice";
+import { BASE_URL } from "../../utils/consts";
 
 export default function MyCard(props) {
   const { name, price, image, onClick, inCart } = props;
@@ -38,7 +39,7 @@ export default function MyCard(props) {
       <CardActionArea>
         <CardMedia
           component="img"
-          image={"https://ecommerceserver-4zw1.onrender.com/" + image}
+          image={BASE_URL + "/" + image}
           sx={{ height: 200, padding: 1, objectFit: "contain" }}
         />
       </CardActionArea>
@@ -59,13 +60,14 @@ export default function MyCard(props) {
         {addedToCart ? (
           <IconButton
             onClick={() => {
-              enqueueSnackbar("Item removed from cart.", { variant: "error" });
-              // api.cart.remove(user.user.id, props.id, user.token);
               dispatch(
                 removeFromCart({
-                  user_id: user.user.id,
                   product_id: props.id,
                   token: user.token,
+                })
+              ).then((response) =>
+                enqueueSnackbar(response.payload.data.message, {
+                  variant: "error",
                 })
               );
               setAddedToCart(!addedToCart);
@@ -85,19 +87,16 @@ export default function MyCard(props) {
         ) : (
           <IconButton
             onClick={() => {
-              enqueueSnackbar("Item added to cart.", { variant: "success" });
               dispatch(
                 addToCart({
-                  user_id: user.user.id,
                   product_id: props.id,
                   token: user.token,
                 })
-              )
-              // .then(
-              //   dispatch(
-              //     fetchCartData({ userId: user.user.id, token: user.token })
-              //   )
-              // );
+              ).then((response) =>
+                enqueueSnackbar(response.payload.data.message, {
+                  variant: "success",
+                })
+              );
               setAddedToCart(!addedToCart);
             }}
           >

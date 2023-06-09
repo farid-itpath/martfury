@@ -4,15 +4,16 @@ import CartTable from "../../components/CartTable";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartData } from "../../redux/reducers/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
   const cartData = useSelector((state) => state.cart.cartData);
+  const navigate = useNavigate();
   useEffect(() => {
-    dispatch(fetchCartData({ userId: user.user.id, token: user.token }));
-    // setTotal(ca)
+    dispatch(fetchCartData(user.token));
   }, []);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function Cart() {
       setTotal(
         cartData.reduce(
           (sum, item) =>
-            sum + parseInt(item.qty) * parseInt(item.Product.price),
+            sum + parseInt(item.qty) * parseInt(item.product_id.price),
           0
         )
       );
@@ -35,9 +36,6 @@ export default function Cart() {
       <BackToHome />
       <CartTable header={["Product", "Quantity", "Price"]} data={cartData} />
       <Box sx={{ padding: 5 }}>
-        <Typography variant="h5" sx={{ mb: 5 }}>
-          Bill
-        </Typography>
         <Box
           sx={{
             display: "flex",
@@ -51,20 +49,26 @@ export default function Cart() {
         >
           <Box>
             <Typography variant="body1">Total Amount</Typography>
-            <Divider />
             <Typography variant="body1">Discount Applied</Typography>
+            <Divider />
             <Typography variant="h6">Payable Amount</Typography>
           </Box>
           <Box>
             <Typography variant="body1">$ {total}</Typography>
-            <Divider />
             <Typography variant="body1" color={"error"}>
-              - $ {total * 0.025}
+              - $ {parseFloat(total * 0.025).toFixed(2)}
             </Typography>
-            <Typography variant="h6">{total - total * 0.025}</Typography>
+            <Divider />
+            <Typography variant="h6">
+              {parseFloat(total - total * 0.025).toFixed(2)}
+            </Typography>
           </Box>
         </Box>
-        <Button variant="contained" sx={{ width: "100%" }}>
+        <Button
+          variant="contained"
+          sx={{ width: "100%" }}
+          onClick={() => navigate("/purchase")}
+        >
           Checkout
         </Button>
       </Box>

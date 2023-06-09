@@ -9,7 +9,7 @@ export default function ItemCount(props) {
   const { productId } = props;
   const user = useSelector((state) => state.auth.user);
   const cart = useSelector((state) => state.cart.cartData);
-  const cartItem = cart.find((item) => item.product_id === productId);
+  const cartItem = cart.find((item) => item.product_id._id === productId);
   const [count, setCount] = React.useState(cartItem?.qty);
   const dispatch = useDispatch();
   return (
@@ -19,13 +19,11 @@ export default function ItemCount(props) {
           setCount(parseInt(count) - 1);
           dispatch(
             updateCartItem({
-              cartId: cartItem.id,
+              cartId: cartItem._id,
               token: user.token,
               qty: parseInt(count) - 1,
             })
-          ).then(() =>
-            dispatch(fetchCartData({ userId: user.user.id, token: user.token }))
-          );
+          ).then(() => dispatch(fetchCartData(user.token)));
         }}
         disabled={count < 2 ? true : false}
       >
@@ -36,17 +34,17 @@ export default function ItemCount(props) {
         value={count}
         onChange={(e) => {
           const v =
-            parseInt(e.target.value) < 0 ? parseInt(e.target.value) * (-1) : e.target.value;
+            parseInt(e.target.value) < 0
+              ? parseInt(e.target.value) * -1
+              : e.target.value;
           setCount(v);
           dispatch(
             updateCartItem({
-              cartId: cartItem.id,
+              cartId: cartItem._id,
               token: user.token,
               qty: v,
             })
-          ).then(() =>
-            dispatch(fetchCartData({ userId: user.user.id, token: user.token }))
-          );
+          ).then(() => dispatch(fetchCartData(user.token)));
         }}
         sx={{ width: 100 }}
       />
@@ -55,13 +53,11 @@ export default function ItemCount(props) {
           setCount(parseInt(count) + 1);
           dispatch(
             updateCartItem({
-              cartId: cartItem.id,
+              cartId: cartItem._id,
               token: user.token,
               qty: parseInt(count) + 1,
             })
-          ).then(() =>
-            dispatch(fetchCartData({ userId: user.user.id, token: user.token }))
-          );
+          ).then(() => dispatch(fetchCartData(user.token)));
         }}
       >
         +

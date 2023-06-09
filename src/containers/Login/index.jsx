@@ -15,7 +15,7 @@ export default function Login() {
     api.auth
       .login(formData)
       .then((response) => {
-        dispatch(createUser(response.data));
+        dispatch(createUser(response.data.data));
         navigate("/");
       })
       .catch((e) => console.log("Something went wrong!", e));

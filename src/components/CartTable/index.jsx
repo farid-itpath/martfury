@@ -11,6 +11,7 @@ import ItemCount from "../ItemCount";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartData, removeFromCart } from "../../redux/reducers/cartSlice";
 import { enqueueSnackbar } from "notistack";
+import { BASE_URL } from "../../utils/consts";
 
 export default function CartTable(props) {
   const { header, data } = props;
@@ -31,40 +32,35 @@ export default function CartTable(props) {
         <TableBody>
           {data?.map((row) => (
             <TableRow
-              key={row.id}
+              key={row.product_id._id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell sx={{ display: "flex" }}>
                 <Box
                   component="img"
                   src={
-                    row.Product.image &&
-                    "https://ecommerceserver-4zw1.onrender.com/" +
-                      row.Product.image
+                    row.product_id.image &&
+                    BASE_URL + "/" + row.product_id.image
                   }
                   sx={{ height: 80, width: 80, objectFit: "contain" }}
                 />
                 <Box>
-                  <Typography variant="body1">{row.Product.name}</Typography>
+                  <Typography variant="body1">{row.product_id.name}</Typography>
                   <Typography variant="subtitle2">
-                    $ {row.Product.price}
+                    $ {row.product_id.price}
                   </Typography>
                   <Typography
                     onClick={() =>
                       dispatch(
                         removeFromCart({
-                          user_id: user.user.id,
-                          product_id: row.Product.id,
+                          product_id: row.product_id._id,
                           token: user.token,
                         })
                       ).then((response) =>
                         dispatch(
-                          fetchCartData({
-                            userId: user.user.id,
-                            token: user.token,
-                          }),
+                          fetchCartData(user.token),
                           enqueueSnackbar(response.payload.data.message, {
-                            variant: "success",
+                            variant: "error",
                           })
                         )
                       )
@@ -77,9 +73,9 @@ export default function CartTable(props) {
                 </Box>
               </TableCell>
               <TableCell>
-                <ItemCount productId={row.product_id} />
+                <ItemCount productId={row.product_id._id} />
               </TableCell>
-              <TableCell>{row.qty * row.Product.price}</TableCell>
+              <TableCell>{row.qty * row.product_id.price}</TableCell>
             </TableRow>
           ))}
         </TableBody>

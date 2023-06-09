@@ -4,16 +4,18 @@ import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
-import ProfilePhoto from "./../../../assets/images/myphoto.jpeg"
+import ProfilePhoto from "./../../../assets/images/myphoto.jpeg";
 import { useNavigate } from "react-router-dom";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
 const actions = [
   { icon: <PersonIcon />, name: "Profile", url: "profile" },
+  { icon: <ShoppingBasketIcon />, name: "orders", url: "orders" },
   { icon: <LogoutIcon />, name: "Logout", url: "login" },
 ];
 
 export default function MySpeedDial() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <Box sx={{ transform: "translateX(0px)", flexGrow: 1 }}>
       <SpeedDial
@@ -33,7 +35,7 @@ export default function MySpeedDial() {
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
-            onClick={()=>navigate(action.url)}
+            onClick={() => navigate(action.url)}
           />
         ))}
       </SpeedDial>

@@ -11,27 +11,16 @@ export default function SignUp() {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const handleSignUp = () => {
-    api.auth
-      .register(formData)
-      .then((response) => {
-        if (response.status === 201) {
-          enqueueSnackbar("You have been registered successfully!", {
-            variant: "success",
-          });
-          navigate("/login");
-        } else {
-          console.log("Registration failed!");
-        }
-      })
-      .catch((e) => {
-        console.log("Server Error --- ", e);
-        enqueueSnackbar(
-          "There was an error while registering you. Please try later!",
-          {
-            variant: "error",
-          }
-        );
-      });
+    api.auth.register(formData).then((response) => {
+      if (response.data.status === 200) {
+        enqueueSnackbar(response.data.message, {
+          variant: "success",
+        });
+        navigate("/login");
+      } else {
+        enqueueSnackbar(response.message.message, { variant: "error" });
+      }
+    });
   };
   return (
     <Container

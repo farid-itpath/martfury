@@ -62,31 +62,31 @@ request.interceptors.response.use(
   (err) => {
     const originalRequest = err.config;
     const status = err.response?.status;
-    if (status === 503) {
-      const error = {
-        originalRequest,
-        status,
-        message:
-          "This service is unavailable right now, please try again later",
-      };
-      throw error;
-    }
-    if (status === 500) {
-      const error = {
-        originalRequest,
-        status,
-        message: "An unexpected error occurred, please try again later",
-      };
-      throw error;
-    }
-    if (status === 404) {
-      const error = {
-        originalRequest,
-        status,
-        message: "The requested content does not exist, please try again later",
-      };
-      throw error;
-    }
+    // if (status === 503) {
+    //   const error = {
+    //     originalRequest,
+    //     status,
+    //     message:
+    //       "This service is unavailable right now, please try again later",
+    //   };
+    //   throw error;
+    // }
+    // if (status === 500) {
+    //   const error = {
+    //     originalRequest,
+    //     status,
+    //     message: "An unexpected error occurred, please try again later",
+    //   };
+    //   throw error;
+    // }
+    // if (status === 404) {
+    //   const error = {
+    //     originalRequest,
+    //     status,
+    //     message: "The requested content does not exist, please try again later",
+    //   };
+    //   throw error;
+    // }
 
     const response = err.response?.data;
     const message = response ? response : err.message;

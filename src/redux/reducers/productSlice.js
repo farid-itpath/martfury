@@ -6,7 +6,7 @@ export const fetchProducts = createAsyncThunk(
   async (data) => {
     try {
       const response = await api.product.get(data);
-      return response.data.productlist;
+      return response;
     } catch (error) {}
   }
 );
@@ -21,7 +21,7 @@ export const productSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.products = action.payload;
+      state.products = action.payload.data.data.product;
     });
   },
 });

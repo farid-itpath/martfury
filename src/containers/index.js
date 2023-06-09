@@ -5,6 +5,7 @@ import Home from "./Home";
 import Profile from "./Profile";
 import Product from "./Product";
 import Cart from "./Cart";
+import Purchase from "./Purchase";
 
 export {
     Error404,
@@ -14,5 +15,5 @@ export {
     Profile,
     Product,
     Cart,
-    
+    Purchase,
 }

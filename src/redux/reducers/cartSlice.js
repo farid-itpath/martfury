@@ -6,7 +6,7 @@ export const fetchCartData = createAsyncThunk(
   async (data) => {
     try {
       const response = await api.cart.get(data);
-      return response.data.usercart;
+      return response;
     } catch (e) {
       if (e.status === 401) {
         localStorage.clear();
@@ -69,7 +69,7 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCartData.fulfilled, (state, action) => {
-      state.cartData = action.payload;
+      state.cartData = action.payload.data.data;
     });
     builder.addCase(addToCart.fulfilled, (state, action) => {
       state.addedCartMessage = action.payload;

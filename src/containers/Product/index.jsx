@@ -11,14 +11,8 @@ import {
 import { useParams } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
-import {
-  BackToHome,
-  MyRating,
-  MyTabs,
-  ReviewItem,
-} from "../../components";
+import { BackToHome, MyRating, MyTabs, ReviewItem } from "../../components";
 import React, { useEffect, useState } from "react";
-import { useTheme } from "@emotion/react";
 import { enqueueSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -27,15 +21,16 @@ import {
   removeFromCart,
 } from "../../redux/reducers/cartSlice";
 import useFetch from "../../hooks/useFetch";
+import { BASE_URL } from "../../utils/consts";
 
 export default function Product() {
   const { id } = useParams();
   const user = useSelector((state) => state.auth.user);
 
-  const { data } = useFetch({
+  const product = useFetch({
     initialUrl: `/api/product/getproductbyid/${id}`,
-  });
-  const product = data?.product;
+  }).data?.data.Product;
+
   const dispatch = useDispatch();
 
   const [addedToCart, setAddedToCart] = useState(false);
@@ -43,11 +38,11 @@ export default function Product() {
   const cartData = useSelector((state) => state.cart.cartData);
 
   useEffect(() => {
-    dispatch(fetchCartData({ userId: user.user.id, token: user.token }));
+    dispatch(fetchCartData(user.token));
   }, []);
 
   useEffect(() => {
-    cartData?.find((item) => item.product_id === parseInt(id))
+    cartData?.find((item) => item.product_id._id === id)
       ? setAddedToCart(true)
       : setAddedToCart(false);
   }, [cartData]);
@@ -68,10 +63,7 @@ export default function Product() {
           <Card>
             <CardMedia
               sx={{ height: 200, padding: 1, objectFit: "contain" }}
-              image={
-                product?.image &&
-                "https://ecommerceserver-4zw1.onrender.com/" + product?.image
-              }
+              image={product?.image && BASE_URL + "/" + product?.image}
               component="img"
             />
           </Card>
@@ -91,15 +83,14 @@ export default function Product() {
                   variant="outlined"
                   color="error"
                   onClick={() => {
-                    enqueueSnackbar("Item removed from cart!", {
-                      variant: "error",
-                    });
-                    // api.cart.remove(localStorage.getItem("loggedInUser"), id);
                     dispatch(
                       removeFromCart({
-                        user_id: user.user.id,
                         product_id: id,
                         token: user.token,
+                      })
+                    ).then((response) =>
+                      enqueueSnackbar(response.payload.data.message, {
+                        variant: "error",
                       })
                     );
                     setAddedToCart(!addedToCart);
@@ -111,18 +102,14 @@ export default function Product() {
                 <Button
                   variant="outlined"
                   onClick={() => {
-                    enqueueSnackbar("Item added to cart!", {
-                      variant: "success",
-                    });
-                    // api.cart.add({
-                    //   user_id: localStorage.getItem("loggedInUser"),
-                    //   product_id: id,
-                    // });
                     dispatch(
                       addToCart({
-                        user_id: user.user.id,
                         product_id: id,
                         token: user.token,
+                      })
+                    ).then((response) =>
+                      enqueueSnackbar(response.payload.data.message, {
+                        variant: "success",
                       })
                     );
                     setAddedToCart(!addedToCart);
