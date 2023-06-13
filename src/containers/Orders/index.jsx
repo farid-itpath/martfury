@@ -21,7 +21,7 @@ export default function Orders() {
   //   console.log("orderHistory", orderHistory[0].orderDetails[0].order_id)
   useEffect(() => {
     dispatch(fetchOrderHistory(user.token));
-  }, []);
+  }, [dispatch, user.token]);
   //   return <div>{orderHistory?.map(item=>console.log('item', item))}</div>;
   return (
     <Container>
@@ -42,7 +42,7 @@ export default function Orders() {
                 <TableCell>{item.order.createdAt}</TableCell>
                 <TableCell style={{ display: "flex", flexDirection: "column" }}>
                   {item.orderDetails.map((product) => (
-                    <img
+                    <image
                       src={BASE_URL + "/" + product.product_id.image}
                       alt="image"
                       style={{ height: 50, width: 50 }}

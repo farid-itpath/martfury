@@ -18,7 +18,6 @@ import { useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
-  fetchCartData,
   removeFromCart,
 } from "../../redux/reducers/cartSlice";
 import { BASE_URL } from "../../utils/consts";

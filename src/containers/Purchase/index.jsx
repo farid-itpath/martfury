@@ -1,5 +1,5 @@
-import { Box, Container, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Container } from "@mui/material";
+import React from "react";
 import { BackToHome, MyButton } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../../utils/consts";
@@ -10,7 +10,6 @@ import { fetchOrderHistory } from "../../redux/reducers/orderSlice";
 function Purchase() {
   const cartData = useSelector((state) => state.cart.cartData);
   const user = useSelector((state) => state.auth.user);
-  const [history, getHistory] = useState([]);
   const dispatch = useDispatch();
   return (
     <>

@@ -39,13 +39,13 @@ export default function Product() {
 
   useEffect(() => {
     dispatch(fetchCartData(user.token));
-  }, []);
+  }, [dispatch, user.token]);
 
   useEffect(() => {
     cartData?.find((item) => item.product_id._id === id)
       ? setAddedToCart(true)
       : setAddedToCart(false);
-  }, [cartData]);
+  }, [cartData,id]);
 
   return (
     <Container

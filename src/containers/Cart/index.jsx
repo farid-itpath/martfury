@@ -14,7 +14,7 @@ export default function Cart() {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchCartData(user.token));
-  }, []);
+  }, [dispatch, user.token]);
 
   useEffect(() => {
     cartData.length !== 0 &&

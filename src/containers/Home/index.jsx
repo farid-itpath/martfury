@@ -19,7 +19,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchCartData(user.token));
-  }, []);
+  }, [dispatch, user.token]);
 
   return (
     <>
