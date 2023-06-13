@@ -88,6 +88,12 @@ request.interceptors.response.use(
     //   throw error;
     // }
 
+    if (status === 401) {
+      console.log('im here')
+      localStorage.clear();
+      window.history.go("/login");
+    }
+
     const response = err.response?.data;
     const message = response ? response : err.message;
 

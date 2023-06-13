@@ -8,10 +8,10 @@ export const fetchCartData = createAsyncThunk(
       const response = await api.cart.get(data);
       return response;
     } catch (e) {
-      if (e.status === 401) {
-        localStorage.clear();
-        window.location.reload();
-      }
+      // if (e.status === 401) {
+      //   localStorage.clear();
+      //   window.location.reload();
+      // }
     }
   }
 );
@@ -21,10 +21,10 @@ export const addToCart = createAsyncThunk("cart/addToCart", async (data) => {
     const response = await api.cart.add(data);
     return response;
   } catch (e) {
-    if (e.status === 401) {
-      localStorage.clear();
-      window.location.reload();
-    }
+    // if (e.status === 401) {
+    //   localStorage.clear();
+    //   window.location.reload();
+    // }
   }
 });
 
@@ -35,10 +35,10 @@ export const removeFromCart = createAsyncThunk(
       const response = await api.cart.remove(data);
       return response;
     } catch (e) {
-      if (e.status === 401) {
-        localStorage.clear();
-        window.location.reload();
-      }
+      // if (e.status === 401) {
+      //   localStorage.clear();
+      //   window.location.reload();
+      // }
     }
   }
 );
@@ -50,10 +50,10 @@ export const updateCartItem = createAsyncThunk(
       const response = await api.cart.update(data);
       return response;
     } catch (e) {
-      if (e.status === 401) {
-        localStorage.clear();
-        window.location.reload();
-      }
+      // if (e.status === 401) {
+      //   localStorage.clear();
+      //   window.location.reload();
+      // }
     }
   }
 );

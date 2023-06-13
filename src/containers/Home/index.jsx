@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Loading } from "../../components";
 import { fetchProducts } from "../../redux/reducers/productSlice";
 import { fetchCartData } from "../../redux/reducers/cartSlice";
-import { useRoutes } from "../../hooks/useRoutes";
 export default function Home() {
   const user = useSelector((state) => state.auth.user);
   const products = useSelector((state) => state.product.products);

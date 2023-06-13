@@ -60,7 +60,7 @@ export default function CartTable(props) {
                         dispatch(
                           fetchCartData(user.token),
                           enqueueSnackbar(response.payload.data.message, {
-                            variant: "error",
+                            variant: "success",
                           })
                         )
                       )

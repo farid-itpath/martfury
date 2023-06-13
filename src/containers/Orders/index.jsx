@@ -14,7 +14,7 @@ import {
 import BackToHome from "../../components/BackToHome";
 import { BASE_URL } from "../../utils/consts";
 
-function Orders() {
+export default function Orders() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const orderHistory = useSelector((state) => state.order.orderHistory);
@@ -59,5 +59,3 @@ function Orders() {
     </Container>
   );
 }
-
-export default Orders;

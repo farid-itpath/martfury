@@ -6,14 +6,11 @@ import { DrawerContext } from "../../App";
 import { DRAWER_WIDTH } from "../../utils/consts";
 import { theme } from "../../themes";
 import { useTheme } from "@emotion/react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProfile } from "../../redux/reducers/authSlice";
 
 export default function Layout() {
   const appTheme = useTheme();
   const { open } = useContext(DrawerContext);
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  const user = useSelector((state) => state.auth.user);
   return (
     <>
       <MyAppBar />
@@ -27,7 +24,7 @@ export default function Layout() {
         }}
       >
         <Box sx={appTheme.mixins.toolbar} />
-        {user ? <Outlet /> : <Navigate to={"/login"} />}
+        <Outlet />
       </Container>
       <MyFooter />
     </>
