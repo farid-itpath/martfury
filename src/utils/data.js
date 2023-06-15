@@ -9,6 +9,7 @@ import Cart from "../containers/Cart";
 import Purchase from "../containers/Purchase";
 import Orders from "../containers/Orders";
 import Category from "../containers/Category";
+import Search from "../containers/Search";
 
 export const ButtonIcons = [
   { id: 1, name: "home", url: "", icon: <HomeIcon /> },
@@ -98,5 +99,11 @@ export const MainRoutesArray = [
     name: "CategoryRoute",
     path: "category",
     element: <Home />,
+  },
+  {
+    id: 9,
+    name: "Search",
+    path: "search",
+    element: <Search />,
   },
 ];

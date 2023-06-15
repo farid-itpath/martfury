@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 import { InputBase, alpha } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 export default function MySearchBox() {
+  const navigate = useNavigate();
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -43,7 +45,7 @@ export default function MySearchBox() {
     justifyContent: "center",
   }));
   return (
-    <Search>
+    <Search onClick={() => navigate("/search")}>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>

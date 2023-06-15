@@ -44,6 +44,11 @@ export const api = {
         url: `/api/product/getbycategory/${category}`,
         method: METHODS.GET,
       }),
+    search: (key) =>
+      client({
+        url: `/api/product/searchproduct?q=${key}`,
+        method: METHODS.GET,
+      }),
   },
   cart: {
     add: (params) =>
