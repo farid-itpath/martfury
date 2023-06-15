@@ -1,8 +1,5 @@
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import CheckroomIcon from "@mui/icons-material/Checkroom";
-import ChairIcon from "@mui/icons-material/Chair";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import HomeIcon from "@mui/icons-material/Home";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Home from "../containers/Home";
@@ -11,6 +8,7 @@ import Profile from "../containers/Profile";
 import Cart from "../containers/Cart";
 import Purchase from "../containers/Purchase";
 import Orders from "../containers/Orders";
+import Category from "../containers/Category";
 
 export const ButtonIcons = [
   { id: 1, name: "home", url: "", icon: <HomeIcon /> },
@@ -31,17 +29,26 @@ export const ButtonIcons = [
   },
 ];
 
-export const Categories = {
-  clothing: { list: ["Shirts", "Pants", "Shoes"], icon: <CheckroomIcon /> },
-  furniture: {
-    list: ["Executive Chair", "Sofa", "Table", "Office Chair"],
-    icon: <ChairIcon />,
-  },
-  electronics: {
-    list: ["Mobiles", "Wearables", "Laptops"],
-    icon: <PhoneAndroidIcon />,
-  },
-};
+// export const Categories = {
+//   clothing: { list: ["Shirts", "Pants", "Shoes"], icon: <CheckroomIcon /> },
+//   furniture: {
+//     list: ["Executive Chair", "Sofa", "Table", "Office Chair"],
+//     icon: <ChairIcon />,
+//   },
+//   electronics: {
+//     list: ["Mobiles", "Wearables", "Laptops"],
+//     icon: <PhoneAndroidIcon />,
+//   },
+// };
+
+export const Categories = [
+  "Electronics",
+  "Women's wear",
+  "Cosmetics",
+  "Footwear",
+  "Men's wear",
+  "Kid's wear",
+];
 
 export const MainRoutesArray = [
   {
@@ -79,5 +86,17 @@ export const MainRoutesArray = [
     name: "Orders",
     path: "orders",
     element: <Orders />,
+  },
+  {
+    id: 7,
+    name: "Category",
+    path: "category/:category",
+    element: <Category />,
+  },
+  {
+    id: 8,
+    name: "CategoryRoute",
+    path: "category",
+    element: <Home />,
   },
 ];

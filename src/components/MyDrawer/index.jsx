@@ -11,7 +11,15 @@ import { DrawerContext } from "../../App";
 import { useContext } from "react";
 import { Categories } from "../../utils/data";
 import { useMediaQuery } from "@mui/material";
-import MyDrawerList from "./MyDrawerList";
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import LabelIcon from "@mui/icons-material/Label";
+import { useNavigate } from "react-router-dom";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -28,6 +36,7 @@ export default function MyDrawer() {
   const drawerWidth = matches ? "100%" : 240;
 
   const { open, setOpen } = useContext(DrawerContext);
+  const navigate = useNavigate();
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -63,12 +72,30 @@ export default function MyDrawer() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <MyDrawerList title="Clothing" data={Categories.clothing}/>
+        {/* <MyDrawerList title="Clothing" data={Categories.clothing}/>
         <Divider />
         <MyDrawerList title="Furniture" data={Categories.furniture} />
 
         <Divider />
-        <MyDrawerList title="Electronics" data={Categories.electronics} />
+        <MyDrawerList title="Electronics" data={Categories.electronics} /> */}
+        <List>
+          {Categories.map((text) => (
+            <ListItem
+              key={text}
+              disablePadding
+              onClick={() => navigate(`/category/${text}`)}
+            >
+              <ListItemButton>
+                <ListItemIcon>
+                  <Typography color={"primary"}>
+                    <LabelIcon />
+                  </Typography>
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
     </Box>
   );

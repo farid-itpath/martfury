@@ -28,8 +28,8 @@ export const api = {
         method: METHODS.GET,
         ...data,
       }),
-    //used in useFetch
     getProductById: (id) =>
+      //used in useFetch
       client({
         url: `/api/product/getproductbyid/${id}`,
         method: METHODS.GET,
@@ -37,6 +37,11 @@ export const api = {
     getBestSeller: () =>
       client({
         url: "/api/product/getbestseller",
+        method: METHODS.GET,
+      }),
+    getByCategory: (category) =>
+      client({
+        url: `/api/product/getbycategory/${category}`,
         method: METHODS.GET,
       }),
   },

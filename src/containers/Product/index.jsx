@@ -8,7 +8,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { BackToHome, MyRating, MyTabs, ReviewItem } from "../../components";
@@ -40,6 +40,7 @@ export default function Product() {
 
   const cartData = useSelector((state) => state.cart.cartData);
   const bestSellers = useSelector((state) => state.product.bestSellers);
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchCartData(user.token));
     dispatch(fetchBestSellers());
@@ -159,6 +160,7 @@ export default function Product() {
                   ? true
                   : false
               }
+              onClick={() => navigate("/" + item._id)}
             />
           </Grid>
         ))}
