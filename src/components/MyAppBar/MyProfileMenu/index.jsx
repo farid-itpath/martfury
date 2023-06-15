@@ -7,7 +7,8 @@ import MyIconButton from "../MyIconButton";
 import { useNavigate } from "react-router-dom";
 import { ButtonIcons } from "../../../utils/data";
 
-export default function MyProfileMenu() {
+export default function MyProfileMenu(props) {
+  const { cartProductsCount } = props;
   const { anchorEl, setAnchorEl } = useContext(AnchorElContext);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -80,10 +81,13 @@ export default function MyProfileMenu() {
           <MenuItem
             key={item.id}
             onClick={() => {
-              navigate(item.url)
+              navigate(item.url);
             }}
           >
-            <MyIconButton badgeContent={item.badgeContent} icon={item.icon} />
+            <MyIconButton
+              badgeContent={item.name === "cart" ? cartProductsCount : 0}
+              icon={item.icon}
+            />
             <Typography variant="h6">{item.name.toUpperCase()}</Typography>
           </MenuItem>
         );

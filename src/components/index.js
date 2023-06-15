@@ -16,6 +16,7 @@ import ItemCount from "./ItemCount";
 import ReviewItem from "./ReviewItem";
 import CartTable from "./CartTable";
 import Loading from "./Loading";
+import Modal from "./Modal";
 
 export {
   MyButton,
@@ -24,7 +25,7 @@ export {
   MyFooter,
   MyDrawer,
   MyIconButtonGroup,
-  MyProfileMenu, 
+  MyProfileMenu,
   MyIconButton,
   MyIconButtonMenu,
   MyDrawerList,
@@ -36,4 +37,5 @@ export {
   ReviewItem,
   CartTable,
   Loading,
+  Modal,
 };

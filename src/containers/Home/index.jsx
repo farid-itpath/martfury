@@ -34,6 +34,8 @@ export default function Home() {
                 price={item.price}
                 image={item.image}
                 onClick={() => handleOnClick(item._id)}
+                bestSeller={item.bestSeller}
+                category={item.category}
                 inCart={
                   cartData?.find(
                     (product) => product.product_id._id === item._id

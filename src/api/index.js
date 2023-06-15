@@ -5,14 +5,12 @@ export const api = {
     login: (params) =>
       client({
         url: "/api/user/signin",
-        //New API
         data: params,
         method: METHODS.POST,
       }),
     register: (params) =>
       client({
         url: "/api/user/signup",
-        //Done
         data: params,
         method: METHODS.POST,
       }),
@@ -27,14 +25,18 @@ export const api = {
     get: (data) =>
       client({
         url: "/api/product/getAllProduct",
-        //New API
         method: METHODS.GET,
         ...data,
       }),
+    //used in useFetch
     getProductById: (id) =>
       client({
         url: `/api/product/getproductbyid/${id}`,
-        //New API used by useFetch
+        method: METHODS.GET,
+      }),
+    getBestSeller: () =>
+      client({
+        url: "/api/product/getbestseller",
         method: METHODS.GET,
       }),
   },
@@ -42,7 +44,6 @@ export const api = {
     add: (params) =>
       client({
         url: "/api/product/addtocart",
-        //New API
         data: params,
         method: METHODS.POST,
         headers: { Authorization: `Bearer ${params.token}` },
@@ -50,21 +51,18 @@ export const api = {
     remove: (params) =>
       client({
         url: `api/product/removefromcart/${params.product_id}`,
-        //New API
         method: METHODS.DELETE,
         headers: { Authorization: `Bearer ${params.token}` },
       }),
     get: (data) =>
       client({
         url: `api/product/getusercart`,
-        //New API
         method: METHODS.GET,
         headers: { Authorization: `Bearer ${data}` },
       }),
     update: (params) =>
       client({
         url: `/api/product/updatecart/${params.cartId}`,
-        //New API
         method: METHODS.PUT,
         data: params,
         headers: { Authorization: `Bearer ${params.token}` },

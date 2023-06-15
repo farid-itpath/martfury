@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import {
+  Box,
   Button,
   CardActionArea,
   CardActions,
@@ -18,12 +19,13 @@ import { useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
+  fetchCartData,
   removeFromCart,
 } from "../../redux/reducers/cartSlice";
 import { BASE_URL } from "../../utils/consts";
 
 export default function MyCard(props) {
-  const { name, price, image, onClick, inCart } = props;
+  const { name, price, image, onClick, inCart, bestSeller } = props;
   const { enqueueSnackbar } = useSnackbar();
   const [addedToCart, setAddedToCart] = React.useState(false);
   const user = useSelector((state) => state.auth.user);
@@ -36,6 +38,21 @@ export default function MyCard(props) {
   return (
     <Card>
       <CardActionArea>
+        {bestSeller && (
+          <Typography
+            component="span"
+            sx={{
+              backgroundColor: theme.palette.error.main,
+              color: "white",
+              borderBottomRightRadius: 10,
+              position: "absolute",
+              top: 10,
+              paddingX: 2,
+            }}
+          >
+            Best Seller
+          </Typography>
+        )}
         <CardMedia
           component="img"
           image={BASE_URL + "/" + image}
@@ -44,18 +61,28 @@ export default function MyCard(props) {
       </CardActionArea>
       <Divider />
       <CardContent
-        sx={{ whiteSpace: "nowrap", overflow: "hidden" }}
+        sx={{
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
         onClick={onClick}
       >
-        <Typography variant="subtitle2" component="div">
-          {name}
-        </Typography>
-        <Typography variant="subtitle1" component="span">
-          $ {price}
-        </Typography>
+        <Box sx={{ flexDirection: "column" }}>
+          <Typography variant="subtitle2" component="div">
+            {name}
+          </Typography>
+          <Typography variant="subtitle1" component="span">
+            $ {price}
+          </Typography>
+        </Box>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Button variant="contained">Buy</Button>
+        <Button variant="contained" onClick={onClick}>
+          Buy
+        </Button>
         {addedToCart ? (
           <IconButton
             onClick={() => {
@@ -64,11 +91,12 @@ export default function MyCard(props) {
                   product_id: props.id,
                   token: user.token,
                 })
-              ).then((response) =>
+              ).then((response) => {
                 enqueueSnackbar(response.payload.data.message, {
                   variant: "error",
-                })
-              );
+                });
+                dispatch(fetchCartData(user.token));
+              });
               setAddedToCart(!addedToCart);
             }}
           >
@@ -91,11 +119,12 @@ export default function MyCard(props) {
                   product_id: props.id,
                   token: user.token,
                 })
-              ).then((response) =>
+              ).then((response) => {
+                dispatch(fetchCartData(user.token));
                 enqueueSnackbar(response.payload.data.message, {
                   variant: "success",
-                })
-              );
+                });
+              });
               setAddedToCart(!addedToCart);
             }}
           >

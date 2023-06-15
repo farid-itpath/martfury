@@ -35,7 +35,10 @@ export default function MySpeedDial() {
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
-            onClick={() => navigate(action.url)}
+            onClick={() => {
+              navigate(action.url);
+              action.name === "Logout" && localStorage.clear();
+            }}
           />
         ))}
       </SpeedDial>

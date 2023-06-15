@@ -22,6 +22,9 @@ import {
 } from "../../redux/reducers/cartSlice";
 import useFetch from "../../hooks/useFetch";
 import { BASE_URL } from "../../utils/consts";
+import MyCard from "../../components/MyCard";
+import { fetchBestSellers } from "../../redux/reducers/productSlice";
+import { theme } from "../../themes";
 
 export default function Product() {
   const { id } = useParams();
@@ -36,16 +39,17 @@ export default function Product() {
   const [addedToCart, setAddedToCart] = useState(false);
 
   const cartData = useSelector((state) => state.cart.cartData);
-
+  const bestSellers = useSelector((state) => state.product.bestSellers);
   useEffect(() => {
     dispatch(fetchCartData(user.token));
+    dispatch(fetchBestSellers());
   }, [dispatch, user.token]);
 
   useEffect(() => {
     cartData?.find((item) => item.product_id._id === id)
       ? setAddedToCart(true)
       : setAddedToCart(false);
-  }, [cartData,id]);
+  }, [cartData, id]);
 
   return (
     <Container
@@ -135,6 +139,30 @@ export default function Product() {
       <Box sx={{ mt: 2, width: "100%" }}>
         <MyTabs description={product?.description} review={<ReviewItem />} />
       </Box>
+      <Typography
+        variant="h3"
+        sx={{ color: theme.palette.primary.main, fontWeight: "bold" }}
+      >
+        Our Best Sellers
+      </Typography>
+      <Grid container spacing={4}>
+        {bestSellers.map((item) => (
+          <Grid item xs={12} sm={6} key={item._id}>
+            <MyCard
+              id={item._id}
+              name={item.name}
+              price={item.price}
+              image={item.image}
+              bestSeller={true}
+              inCart={
+                cartData?.find((product) => product.product_id._id === item._id)
+                  ? true
+                  : false
+              }
+            />
+          </Grid>
+        ))}
+      </Grid>
     </Container>
   );
 }

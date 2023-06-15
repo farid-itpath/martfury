@@ -89,7 +89,6 @@ request.interceptors.response.use(
     // }
 
     if (status === 401) {
-      console.log('im here')
       localStorage.clear();
       window.history.go("/login");
     }

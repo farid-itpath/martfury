@@ -11,8 +11,19 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+export const fetchBestSellers = createAsyncThunk(
+  "product/fetchBestSellers",
+  async () => {
+    try {
+      const response = await api.product.getBestSeller();
+      return response;
+    } catch (error) {}
+  }
+);
+
 const initialState = {
   products: [],
+  bestSellers: [],
 };
 
 export const productSlice = createSlice({
@@ -22,6 +33,10 @@ export const productSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.products = action.payload.data.data.product;
+    });
+    builder.addCase(fetchBestSellers.fulfilled, (state, action) => {
+      state.bestSellers = action.payload.data.data;
+      // console.log("action.payload", action.payload.data.data);
     });
   },
 });

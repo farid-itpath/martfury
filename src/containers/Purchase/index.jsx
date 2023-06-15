@@ -1,15 +1,17 @@
-import { Box, Container } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import React from "react";
-import { BackToHome, MyButton } from "../../components";
+import { BackToHome } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../../utils/consts";
 import { api } from "../../api";
 import { enqueueSnackbar } from "notistack";
-import { fetchOrderHistory } from "../../redux/reducers/orderSlice";
+import { useNavigate } from "react-router-dom";
+import { fetchCartData } from "../../redux/reducers/cartSlice";
 
 function Purchase() {
   const cartData = useSelector((state) => state.cart.cartData);
   const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
     <>
@@ -24,49 +26,93 @@ function Purchase() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          gap: "50px",
         }}
       >
-        {cartData.map((item) => (
-          <Box
-            sx={{ display: "flex", gap: { md: "200px", sm: "100px" } }}
-            key={item.product_id.id}
-          >
-            <Box sx={{ display: "flex" }}>
+        <Box
+          sx={{
+            flexDirection: "column",
+            border: "1px solid #ccc",
+            borderRadius: 2,
+            boxShadow: 2,
+          }}
+        >
+          {cartData.map((item) => (
+            <Box
+              sx={{
+                display: "flex",
+                padding: "10px",
+              }}
+              key={item.product_id._id}
+            >
               <Box
                 component="img"
                 src={
                   item.product_id.image &&
                   BASE_URL + "/" + item.product_id.image
                 }
-                sx={{ height: 80, width: 80, objectFit: "contain" }}
+                sx={{
+                  height: 80,
+                  objectFit: "contain",
+                  width: "20%",
+                }}
               />
-              <Box>{item.product_id.name}</Box>
+              <Box sx={{ width: "80%" }}>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  {item.product_id.name}
+                </Box>
+                <Typography variant="caption">
+                  {item.product_id.desc}
+                </Typography>
+              </Box>
             </Box>
-            <Box>{item.product_id.price}</Box>
-          </Box>
-        ))}
+          ))}
+        </Box>
 
-        <MyButton
-          title={`Pay ${cartData.reduce((total, item) => {
-            return total + item.product_id.price * item.qty;
-          }, 0)}`}
-          type="primary"
+        <Box
+          sx={{
+            flexDirection: "column",
+            borderRadius: 2,
+            boxShadow: 2,
+            padding: "10px",
+            width: "100%",
+          }}
+        >
+          {cartData.map((item) => (
+            <Box
+              key={item.product_id._id}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                margin: "10px",
+              }}
+            >
+              <Typography>{item.product_id.name}</Typography>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                {item.product_id.price}
+              </Box>
+            </Box>
+          ))}
+        </Box>
+
+        <Button
+          variant="contained"
+          sx={{ width: "100%" }}
           onClick={() =>
             api.order
               .create(user.token)
               .then((response) => {
                 enqueueSnackbar(response.data.message, { variant: "success" });
+                navigate("/orders");
+                dispatch(fetchCartData(user.token));
               })
               .catch((error) => {
                 enqueueSnackbar(error.message, { variant: "error" });
               })
           }
-        />
-        <MyButton
-          title="list history"
-          type="primary"
-          onClick={() => dispatch(fetchOrderHistory(user.token))}
-        />
+        >{`Pay ${cartData.reduce((total, item) => {
+          return total + item.product_id.price * item.qty;
+        }, 0)}`}</Button>
       </Container>
     </>
   );

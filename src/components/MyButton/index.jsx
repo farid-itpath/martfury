@@ -7,7 +7,7 @@ export default function MyButton(props) {
     <Button
       variant={type === "primary" ? "contained" : "outlined"}
       sx={{
-        backgroundColor: theme.palette.primary.main,
+        // backgroundColor: theme.palette.primary.main,
         ":hover": { backgroundColor: theme.palette.primary.main },
         margin: 2,
       }}

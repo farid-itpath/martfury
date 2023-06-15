@@ -1,4 +1,3 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -6,25 +5,23 @@ import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@emotion/react";
 import { DrawerContext } from "../../App";
-import { useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { AppBar } from "@mui/material";
 import { DRAWER_WIDTH } from "../../utils/consts";
 import MySearchBox from "./MySearchBox";
 import MySpeedDial from "./MySpeedDial";
 import MyProfileMenu from "./MyProfileMenu";
 import MyIconButtonGroup from "./MyIconButtonGroup";
+import { useSelector } from "react-redux";
 
-export const AnchorElContext = React.createContext();
+export const AnchorElContext = createContext();
 export default function MyAppBar() {
   const theme = useTheme();
   const { open, setOpen } = useContext(DrawerContext);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const cartData = useSelector((state) => state.cart.cartData);
   return (
     <Box sx={{ width: "100%" }}>
       <AppBar
@@ -36,7 +33,7 @@ export default function MyAppBar() {
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={() => setOpen(true)}
             edge="start"
             sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
@@ -65,8 +62,8 @@ export default function MyAppBar() {
           <MySearchBox />
           <Box sx={{ flexGrow: 1 }} />
           <AnchorElContext.Provider value={{ anchorEl, setAnchorEl }}>
-            <MyIconButtonGroup />
-            <MyProfileMenu />
+            <MyIconButtonGroup cartProductsCount={cartData.length} />
+            <MyProfileMenu cartProductsCount={cartData.length} />
           </AnchorElContext.Provider>
         </Toolbar>
         <MySpeedDial />

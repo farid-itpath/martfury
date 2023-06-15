@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartData } from "../../redux/reducers/cartSlice";
 import { useNavigate } from "react-router-dom";
+import EmptyCart from "../../assets/images/emptycart.svg";
+import { theme } from "../../themes";
 
 export default function Cart() {
   const user = useSelector((state) => state.auth.user);
@@ -36,41 +38,62 @@ export default function Cart() {
       <BackToHome />
       <CartTable header={["Product", "Quantity", "Price"]} data={cartData} />
       <Box sx={{ padding: 5 }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            minHeight: "30vh",
-            backgroundColor: "#cccccc",
-            padding: 5,
-            borderRadius: 10,
-            marginBottom: 5,
-          }}
-        >
-          <Box>
-            <Typography variant="body1">Total Amount</Typography>
-            <Typography variant="body1">Discount Applied</Typography>
-            <Divider />
-            <Typography variant="h6">Payable Amount</Typography>
-          </Box>
-          <Box>
-            <Typography variant="body1">$ {total}</Typography>
-            <Typography variant="body1" color={"error"}>
-              - $ {parseFloat(total * 0.025).toFixed(2)}
+        {cartData.length > 0 ? (
+          <>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                minHeight: "30vh",
+                backgroundColor: "#cccccc",
+                padding: 5,
+                borderRadius: 10,
+                marginBottom: 5,
+              }}
+            >
+              <Box>
+                <Typography variant="body1">Total Amount</Typography>
+                <Typography variant="body1">Discount Applied</Typography>
+                <Divider />
+                <Typography variant="h6">Payable Amount</Typography>
+              </Box>
+              <Box>
+                <Typography variant="body1">$ {total}</Typography>
+                <Typography variant="body1" color={"error"}>
+                  - $ {parseFloat(total * 0.025).toFixed(2)}
+                </Typography>
+                <Divider />
+                <Typography variant="h6">
+                  {parseFloat(total - total * 0.025).toFixed(2)}
+                </Typography>
+              </Box>
+            </Box>
+            <Button
+              variant="contained"
+              sx={{ width: "100%" }}
+              onClick={() => navigate("/purchase")}
+            >
+              Checkout
+            </Button>
+          </>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Box component="img" src={EmptyCart} />
+            <Typography
+              variant="h2"
+              sx={{ color: theme.palette.primary.main, fontWeight: "bold" }}
+            >
+              Your cart is empty!
             </Typography>
-            <Divider />
-            <Typography variant="h6">
-              {parseFloat(total - total * 0.025).toFixed(2)}
-            </Typography>
           </Box>
-        </Box>
-        <Button
-          variant="contained"
-          sx={{ width: "100%" }}
-          onClick={() => navigate("/purchase")}
-        >
-          Checkout
-        </Button>
+        )}
       </Box>
     </Container>
   );

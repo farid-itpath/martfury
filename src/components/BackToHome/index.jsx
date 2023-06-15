@@ -5,7 +5,7 @@ export default function BackToHome() {
   const navigate = useNavigate();
   return (
     <Box sx={{ height: 50, alignSelf: "self-start" }}>
-      <Button onClick={() => navigate("/")}>
+      <Button onClick={() => navigate(-1)}>
         <ArrowBackIosIcon />
       </Button>
     </Box>
