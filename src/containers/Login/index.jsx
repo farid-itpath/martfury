@@ -50,7 +50,7 @@ export default function Login() {
           {({ handleChange, handleBlur, handleSubmit, errors, touched }) => (
             <>
               <MyTextField
-                label="email"
+                label="Email"
                 onChange={handleChange("email")}
                 onBlur={handleBlur("email")}
                 error={touched.email && errors.email}
@@ -65,18 +65,31 @@ export default function Login() {
             </>
           )}
         </Formik>
-        <Typography>New to MartFury?</Typography>
-        <Link to="/signup">
-          <Typography
-            sx={{
-              textDecoration: "underline",
-              color: "black",
-              ":hover": { color: theme.palette.primary.main },
-            }}
-          >
-            Sign Up
-          </Typography>
-        </Link>
+        <Typography
+          sx={{
+            color: "black",
+            ":hover": { color: theme.palette.primary.main },
+            marginBottom: 5,
+          }}
+          onClick={() => navigate("/forgotPassword")}
+        >
+          Forgot Password
+        </Typography>
+        <Typography variant="span">
+          New to MartFury?
+          <Link to="/signup">
+            <Typography
+              variant="span"
+              sx={{
+                textDecoration: "underline",
+                color: "black",
+                ":hover": { color: theme.palette.primary.main },
+              }}
+            >
+              Sign Up
+            </Typography>
+          </Link>
+        </Typography>
       </Paper>
     </Container>
   );

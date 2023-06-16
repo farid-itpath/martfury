@@ -36,6 +36,15 @@ export const updateFormSchema = Yup.object({
   lastName: Yup.string().required("Last name cannot be empty!"),
 });
 
+export const resetPasswordFormSchema = Yup.object({
+  password: Yup.string()
+    .min(8, "Password must be at least 8 characters!")
+    .required("Password cannot be empty!"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password")], "Confirm password does not match!")
+    .required("Confirm password cannot be empty!"),
+});
+
 export const showSuccess = (message) =>
   enqueueSnackbar(message, { variant: "success" });
 

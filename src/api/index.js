@@ -27,6 +27,18 @@ export const api = {
         data: params,
         headers: { Authorization: `Bearer ${params.token}` },
       }),
+    forgotPassword: (params) =>
+      client({
+        url: "/api/user/forgot_password",
+        method: METHODS.POST,
+        data: params,
+      }),
+    resetPassword: (params) =>
+      client({
+        url: "/api/user/reset_password",
+        method: METHODS.POST,
+        data: params,
+      }),
   },
   product: {
     get: (data) =>
