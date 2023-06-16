@@ -31,6 +31,11 @@ export const loginFormSchema = Yup.object({
   password: Yup.string().required("Password cannot be empty!"),
 });
 
+export const updateFormSchema = Yup.object({
+  firstName: Yup.string().required("First name cannot be empty!"),
+  lastName: Yup.string().required("Last name cannot be empty!"),
+});
+
 export const showSuccess = (message) =>
   enqueueSnackbar(message, { variant: "success" });
 

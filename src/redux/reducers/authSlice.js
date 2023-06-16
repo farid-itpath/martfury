@@ -1,12 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// export const getProfile = createAsyncThunk("auth/getProfile", async (data) => {
-//   try {
-//     const response = await api.auth.profile(data);
-//     return response;
-//   } catch (e) {}
-// });
-
 const initialState = {
   user: null,
 };
@@ -18,14 +11,13 @@ export const authSlice = createSlice({
     createUser: (state, action) => {
       state.user = action.payload;
     },
+    updateUser: (state, action) => {
+      state.user.user.firstName = action.payload.firstName;
+      state.user.user.lastName = action.payload.lastName;
+    },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(getProfile.fulfilled, (state, action) => {
-  //     // console.log('action.payload.data.status', action.payload.data.status)
-  //   });
-  // },
 });
 
-export const { createUser } = authSlice.actions;
+export const { createUser, updateUser } = authSlice.actions;
 
 export default authSlice.reducer;

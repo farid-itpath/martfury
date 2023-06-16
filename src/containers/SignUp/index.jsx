@@ -39,14 +39,17 @@ export default function SignUp() {
           }}
           validationSchema={signupFormSchema}
           onSubmit={(values) =>
-            api.auth.register(values).then((response) => {
-              if (response.data.status === 200) {
-                showSuccess(response.data.message);
-                navigate("/login");
-              } else {
-                showError(response.message.message);
-              }
-            })
+            api.auth
+              .register(values)
+              .then((response) => {
+                if (response.data.status === 200) {
+                  showSuccess(response.data.message);
+                  navigate("/login");
+                } else {
+                  showError("something went wrong");
+                }
+              })
+              .catch((error) => showError(error.message.message))
           }
         >
           {({ handleSubmit, handleChange, handleBlur, errors, touched }) => (

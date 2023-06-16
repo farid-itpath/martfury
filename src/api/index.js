@@ -20,6 +20,13 @@ export const api = {
         method: METHODS.GET,
         headers: { Authorization: `Bearer ${token}` },
       }),
+    updateProfile: (params) =>
+      client({
+        url: "/api/user/profile_update",
+        method: METHODS.PATCH,
+        data: params,
+        headers: { Authorization: `Bearer ${params.token}` },
+      }),
   },
   product: {
     get: (data) =>

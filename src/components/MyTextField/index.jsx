@@ -3,7 +3,7 @@ import { theme } from "../../themes";
 import { TextField, Typography } from "@mui/material";
 
 export default function MyTextField(props) {
-  const { label, onChange, onBlur, error } = props;
+  const { label, onChange, onBlur, error, value } = props;
   return (
     <Box
       component="form"
@@ -19,6 +19,7 @@ export default function MyTextField(props) {
         variant="outlined"
         onChange={onChange}
         onBlur={onBlur}
+        value={value}
       />
       <Typography sx={{ color: theme.palette.error.light }}>{error}</Typography>
     </Box>
