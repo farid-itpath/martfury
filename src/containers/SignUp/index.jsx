@@ -1,27 +1,14 @@
-import { Container, Paper, Typography } from "@mui/material";
+import { Box, Container, Paper, Typography } from "@mui/material";
 import { MyButton, MyTextField } from "../../components";
 import { theme } from "../../themes";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { api } from "../../api";
-import { useSnackbar } from "notistack";
+import signup from "../../assets/images/signup.svg";
+import { Formik } from "formik";
+import { showError, showSuccess, signupFormSchema } from "../../utils/helper";
 
 export default function SignUp() {
-  const [formData, setFormData] = useState();
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
-  const handleSignUp = () => {
-    api.auth.register(formData).then((response) => {
-      if (response.data.status === 200) {
-        enqueueSnackbar(response.data.message, {
-          variant: "success",
-        });
-        navigate("/login");
-      } else {
-        enqueueSnackbar(response.message.message, { variant: "error" });
-      }
-    });
-  };
   return (
     <Container
       sx={{
@@ -31,32 +18,73 @@ export default function SignUp() {
         height: "100vh",
       }}
     >
-      <Paper sx={{ boxShadow: 5, padding: 5 }}>
+      <Box component="img" src={signup} sx={{ height: "60vh", width: "40%" }} />
+      <Paper
+        sx={{
+          boxShadow: 5,
+          padding: 5,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <Typography variant="h4">Sign Up</Typography>
-        <MyTextField
-          label="Enter Firstname"
-          onChange={(e) =>
-            setFormData({ ...formData, firstName: e.target.value })
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          }}
+          validationSchema={signupFormSchema}
+          onSubmit={(values) =>
+            api.auth.register(values).then((response) => {
+              if (response.data.status === 200) {
+                showSuccess(response.data.message);
+                navigate("/login");
+              } else {
+                showError(response.message.message);
+              }
+            })
           }
-        />
-        <MyTextField
-          label="Enter Lastname"
-          onChange={(e) =>
-            setFormData({ ...formData, lastName: e.target.value })
-          }
-        />
-        <MyTextField
-          label="Enter Email"
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-        />
-        <MyTextField
-          label="Enter Password"
-          onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
-          }
-        />
-        <MyTextField label="Enter Confirm Password" />
-        <MyButton type="primary" title="Sign Up" onClick={handleSignUp} />
+        >
+          {({ handleSubmit, handleChange, handleBlur, errors, touched }) => (
+            <>
+              <MyTextField
+                label="Enter Firstname"
+                onChange={handleChange("firstName")}
+                onBlur={handleBlur("firstName")}
+                error={touched.firstName && errors.firstName}
+              />
+              <MyTextField
+                label="Enter Lastname"
+                onChange={handleChange("lastName")}
+                onBlur={handleBlur("lastName")}
+                error={touched.lastName && errors.lastName}
+              />
+              <MyTextField
+                label="Enter Email"
+                onChange={handleChange("email")}
+                onBlur={handleBlur("email")}
+                error={touched.email && errors.email}
+              />
+              <MyTextField
+                label="Enter Password"
+                onChange={handleChange("password")}
+                onBlur={handleBlur("password")}
+                error={touched.password && errors.password}
+              />
+              <MyTextField
+                label="Enter Confirm Password"
+                onChange={handleChange("confirmPassword")}
+                onBlur={handleBlur("confirmPassword")}
+                error={touched.confirmPassword && errors.confirmPassword}
+              />
+              <MyButton type="primary" title="Sign Up" onClick={handleSubmit} />
+            </>
+          )}
+        </Formik>
         <Typography>Already have an account?</Typography>
         <Link to="/login">
           <Typography

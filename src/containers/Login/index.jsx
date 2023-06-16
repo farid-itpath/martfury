@@ -1,25 +1,17 @@
-import { Container, Paper, Typography } from "@mui/material";
+import { Box, Container, Paper, Typography } from "@mui/material";
 import MyTextField from "../../components/MyTextField";
 import MyButton from "../../components/MyButton";
 import { theme } from "../../themes";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../api";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createUser } from "../../redux/reducers/authSlice";
+import login from "../../assets/images/login.svg";
+import { Formik } from "formik";
+import { loginFormSchema, showError } from "../../utils/helper";
 export default function Login() {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState();
   const navigate = useNavigate();
-  const handleLogin = () => {
-    api.auth
-      .login(formData)
-      .then((response) => {
-        dispatch(createUser(response.data.data));
-        navigate("/");
-      })
-      .catch((e) => console.log("Something went wrong!", e));
-  };
 
   return (
     <Container
@@ -30,19 +22,49 @@ export default function Login() {
         height: "100vh",
       }}
     >
-      <Paper sx={{ boxShadow: 5, padding: 5 }}>
+      <Box component="img" src={login} sx={{ height: "60vh", width: "40%" }} />
+      <Paper
+        sx={{
+          boxShadow: 5,
+          padding: 5,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <Typography variant="h4">Login</Typography>
-        <MyTextField
-          label="email"
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-        />
-        <MyTextField
-          label="Password"
-          onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validationSchema={loginFormSchema}
+          onSubmit={(values) =>
+            api.auth
+              .login(values)
+              .then((response) => {
+                dispatch(createUser(response.data.data));
+                navigate("/");
+              })
+              .catch((e) => showError("Something went wrong!"))
           }
-        />
-        <MyButton type="primary" title="Login" onClick={handleLogin} />
+        >
+          {({ handleChange, handleBlur, handleSubmit, errors, touched }) => (
+            <>
+              <MyTextField
+                label="email"
+                onChange={handleChange("email")}
+                onBlur={handleBlur("email")}
+                error={touched.email && errors.email}
+              />
+              <MyTextField
+                label="Password"
+                onChange={handleChange("password")}
+                onBlur={handleBlur("password")}
+                error={touched.password && errors.password}
+              />
+              <MyButton type="primary" title="Login" onClick={handleSubmit} />
+            </>
+          )}
+        </Formik>
         <Typography>New to MartFury?</Typography>
         <Link to="/signup">
           <Typography

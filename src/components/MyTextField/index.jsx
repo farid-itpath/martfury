@@ -1,9 +1,9 @@
 import Box from "@mui/material/Box";
 import { theme } from "../../themes";
-import { TextField } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 
 export default function MyTextField(props) {
-  const { label, onChange } = props;
+  const { label, onChange, onBlur, error } = props;
   return (
     <Box
       component="form"
@@ -17,9 +17,10 @@ export default function MyTextField(props) {
         id="outlined-basic"
         label={label}
         variant="outlined"
-        sx={{ ":focus-visible": { outlineStyle: theme.palette.primary.main } }}
         onChange={onChange}
+        onBlur={onBlur}
       />
+      <Typography sx={{ color: theme.palette.error.light }}>{error}</Typography>
     </Box>
   );
 }
