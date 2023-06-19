@@ -15,7 +15,7 @@ import BackToHome from "./BackToHome";
 import ItemCount from "./ItemCount";
 import ReviewItem from "./ReviewItem";
 import CartTable from "./CartTable";
-import Loading from "./Loading";
+import Loader from "./Loader";
 import Modal from "./Modal";
 
 export {
@@ -36,6 +36,6 @@ export {
   ItemCount,
   ReviewItem,
   CartTable,
-  Loading,
+  Loader,
   Modal,
 };

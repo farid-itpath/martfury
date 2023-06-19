@@ -9,16 +9,21 @@ import Paper from "@mui/material/Paper";
 import { Box, Typography } from "@mui/material";
 import ItemCount from "../ItemCount";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartData, removeFromCart } from "../../redux/reducers/cartSlice";
-import { enqueueSnackbar } from "notistack";
+import { fetchCartData } from "../../redux/reducers/cartSlice";
 import { BASE_URL } from "../../utils/consts";
+import { api } from "../../api";
+import { showSuccess } from "../../utils/helper";
+import { useState } from "react";
+import { Loader } from "..";
 
 export default function CartTable(props) {
   const { header, data } = props;
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+  const [loading, setLoading] = useState(false);
   return (
     <TableContainer component={Paper}>
+      {loading && <Loader />}
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -50,21 +55,21 @@ export default function CartTable(props) {
                     $ {row.product_id.price}
                   </Typography>
                   <Typography
-                    onClick={() =>
-                      dispatch(
-                        removeFromCart({
+                    onClick={() => {
+                      setLoading(true);
+                      api.cart
+                        .remove({
                           product_id: row.product_id._id,
                           token: user.token,
                         })
-                      ).then((response) =>
-                        dispatch(
-                          fetchCartData(user.token),
-                          enqueueSnackbar(response.payload.data.message, {
-                            variant: "success",
-                          })
+                        .then((response) =>
+                          dispatch(
+                            fetchCartData(user.token),
+                            showSuccess(response.data.message)
+                          )
                         )
-                      )
-                    }
+                        .finally(() => setLoading(false));
+                    }}
                     variant="caption"
                     sx={{ color: "red", display: "block" }}
                   >

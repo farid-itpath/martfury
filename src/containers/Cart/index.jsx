@@ -36,10 +36,13 @@ export default function Cart() {
       }}
     >
       <BackToHome />
-      <CartTable header={["Product", "Quantity", "Price"]} data={cartData} />
       <Box sx={{ padding: 5 }}>
         {cartData.length > 0 ? (
           <>
+            <CartTable
+              header={["Product", "Quantity", "Price"]}
+              data={cartData}
+            />
             <Box
               sx={{
                 display: "flex",
@@ -53,18 +56,24 @@ export default function Cart() {
             >
               <Box>
                 <Typography variant="body1">Total Amount</Typography>
-                <Typography variant="body1">Discount Applied</Typography>
+                <Typography variant="body1">Discount Applied (2.5%)</Typography>
                 <Divider />
-                <Typography variant="h6">Payable Amount</Typography>
+                <Typography variant="body1">Payable Amount</Typography>
               </Box>
               <Box>
-                <Typography variant="body1">$ {total}</Typography>
-                <Typography variant="body1" color={"error"}>
+                <Typography variant="body1" sx={{ textAlign: "right" }}>
+                  $ {parseFloat(total).toFixed(2)}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color={"error"}
+                  sx={{ textAlign: "right" }}
+                >
                   - $ {parseFloat(total * 0.025).toFixed(2)}
                 </Typography>
                 <Divider />
-                <Typography variant="h6">
-                  {parseFloat(total - total * 0.025).toFixed(2)}
+                <Typography variant="body1" sx={{ textAlign: "right" }}>
+                  $ {parseFloat(total - total * 0.025).toFixed(2)}
                 </Typography>
               </Box>
             </Box>
@@ -88,7 +97,11 @@ export default function Cart() {
             <Box component="img" src={EmptyCart} />
             <Typography
               variant="h2"
-              sx={{ color: theme.palette.primary.main, fontWeight: "bold" }}
+              sx={{
+                color: theme.palette.primary.main,
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
             >
               Your cart is empty!
             </Typography>

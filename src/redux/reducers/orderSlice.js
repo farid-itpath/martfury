@@ -7,14 +7,13 @@ export const fetchOrderHistory = createAsyncThunk(
     try {
       const response = await api.order.getOrderHistory(data);
       return response;
-    } catch (error) {
-      console.log("error", error);
-    }
+    } catch (error) {}
   }
 );
 
 const initialState = {
   orderHistory: null,
+  isLoading: false,
 };
 
 export const orderSlice = createSlice({
@@ -24,6 +23,13 @@ export const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchOrderHistory.fulfilled, (state, action) => {
       state.orderHistory = action.payload.data.data;
+      state.isLoading = false;
+    });
+    builder.addCase(fetchOrderHistory.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchOrderHistory.rejected, (state) => {
+      state.isLoading = false;
     });
   },
 });

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOrderHistory } from "../../redux/reducers/orderSlice";
 import {
+  Box,
+  CircularProgress,
   Container,
   Paper,
   Table,
@@ -21,6 +23,7 @@ export default function Orders() {
   const orderHistory = useSelector((state) => state.order.orderHistory);
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({});
+  const loading = useSelector((state) => state.order.isLoading);
   useEffect(() => {
     dispatch(fetchOrderHistory(user.token));
   }, [dispatch, user.token]);
@@ -42,17 +45,6 @@ export default function Orders() {
               <TableRow key={item.order._id}>
                 <TableCell>{item.order._id}</TableCell>
                 <TableCell>{item.order.createdAt}</TableCell>
-                {/* <TableCell style={{ display: "flex", flexDirection: "column" }}>
-                  {item.orderDetails.map((product) => (
-                    <Box
-                      component="img"
-                      src={BASE_URL + "/" + product.product_id.image}
-                      alt="image"
-                      style={{ height: 50, width: 50 }}
-                      key={product.product_id._id}
-                    />
-                  ))}
-                </TableCell> */}
                 <TableCell>
                   <Typography
                     sx={{
@@ -84,6 +76,17 @@ export default function Orders() {
           </TableBody>
         </Table>
       </TableContainer>
+      {loading && (
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      )}
       <Modal open={showModal} setOpen={setShowModal} data={modalData} />
     </Container>
   );

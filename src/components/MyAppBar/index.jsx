@@ -62,8 +62,8 @@ export default function MyAppBar() {
           <MySearchBox />
           <Box sx={{ flexGrow: 1 }} />
           <AnchorElContext.Provider value={{ anchorEl, setAnchorEl }}>
-            <MyIconButtonGroup cartProductsCount={cartData.length} />
-            <MyProfileMenu cartProductsCount={cartData.length} />
+            <MyIconButtonGroup cartProductsCount={cartData?.length} />
+            <MyProfileMenu cartProductsCount={cartData?.length} />
           </AnchorElContext.Provider>
         </Toolbar>
         <MySpeedDial />

@@ -11,36 +11,10 @@ export const fetchCartData = createAsyncThunk(
   }
 );
 
-export const addToCart = createAsyncThunk("cart/addToCart", async (data) => {
-  try {
-    const response = await api.cart.add(data);
-    return response;
-  } catch (e) {}
-});
-
-export const removeFromCart = createAsyncThunk(
-  "cart/removeFromCart",
-  async (data) => {
-    try {
-      const response = await api.cart.remove(data);
-      return response;
-    } catch (e) {}
-  }
-);
-
-export const updateCartItem = createAsyncThunk(
-  "counter/updateCartItem",
-  async (data) => {
-    try {
-      const response = await api.cart.update(data);
-      return response;
-    } catch (e) {}
-  }
-);
-
 const initialState = {
   cartData: [],
   addedCartMessage: {},
+  isLoading: false,
 };
 
 export const cartSlice = createSlice({
@@ -50,14 +24,14 @@ export const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchCartData.fulfilled, (state, action) => {
       state.cartData = action.payload.data.data;
+      state.isLoading = false;
     });
-    builder.addCase(addToCart.fulfilled, (state, action) => {
-      state.addedCartMessage = action.payload;
+    builder.addCase(fetchCartData.pending, (state) => {
+      state.isLoading = true;
     });
-    builder.addCase(removeFromCart.fulfilled, (state, action) => {
-      state.addedCartMessage = action.payload;
+    builder.addCase(fetchCartData.rejected, (state) => {
+      state.isLoading = false;
     });
-    builder.addCase(updateCartItem.fulfilled, (state, action) => {});
   },
 });
 

@@ -15,23 +15,20 @@ import {
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { theme } from "../../themes";
-import { useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addToCart,
-  fetchCartData,
-  removeFromCart,
-} from "../../redux/reducers/cartSlice";
+import { fetchCartData } from "../../redux/reducers/cartSlice";
 import { BASE_URL } from "../../utils/consts";
+import { api } from "../../api";
+import { showSuccess } from "../../utils/helper";
+import { useEffect, useState } from "react";
 
 export default function MyCard(props) {
   const { name, price, image, onClick, inCart, bestSeller } = props;
-  const { enqueueSnackbar } = useSnackbar();
-  const [addedToCart, setAddedToCart] = React.useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     setAddedToCart(inCart);
   }, [inCart]);
 
@@ -86,17 +83,15 @@ export default function MyCard(props) {
         {addedToCart ? (
           <IconButton
             onClick={() => {
-              dispatch(
-                removeFromCart({
+              api.cart
+                .remove({
                   product_id: props.id,
                   token: user.token,
                 })
-              ).then((response) => {
-                enqueueSnackbar(response.payload.data.message, {
-                  variant: "error",
+                .then((response) => {
+                  showSuccess(response.data.message);
+                  dispatch(fetchCartData(user.token));
                 });
-                dispatch(fetchCartData(user.token));
-              });
               setAddedToCart(!addedToCart);
             }}
           >
@@ -114,17 +109,15 @@ export default function MyCard(props) {
         ) : (
           <IconButton
             onClick={() => {
-              dispatch(
-                addToCart({
+              api.cart
+                .add({
                   product_id: props.id,
                   token: user.token,
                 })
-              ).then((response) => {
-                dispatch(fetchCartData(user.token));
-                enqueueSnackbar(response.payload.data.message, {
-                  variant: "success",
+                .then((response) => {
+                  dispatch(fetchCartData(user.token));
+                  showSuccess(response.data.message);
                 });
-              });
               setAddedToCart(!addedToCart);
             }}
           >
