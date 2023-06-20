@@ -1,6 +1,5 @@
-import { Box, Container, Paper, Typography } from "@mui/material";
+import { Box, Container, Paper, Typography, useTheme } from "@mui/material";
 import { MyButton, MyTextField } from "../../components";
-import { theme } from "../../themes";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../api";
 import signup from "../../assets/images/signup.svg";
@@ -8,14 +7,17 @@ import { Formik } from "formik";
 import { showError, showSuccess, signupFormSchema } from "../../utils/helper";
 
 export default function SignUp() {
+  const theme = useTheme();
   const navigate = useNavigate();
   return (
     <Container
+      maxWidth={false}
       sx={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
+        backgroundColor: theme.palette.background.main,
       }}
     >
       <Box component="img" src={signup} sx={{ height: "60vh", width: "40%" }} />
@@ -26,9 +28,15 @@ export default function SignUp() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          backgroundColor: theme.palette.background.light,
         }}
       >
-        <Typography variant="h4">Sign Up</Typography>
+        <Typography
+          variant="h4"
+          sx={{ color: theme.palette.primary.contrastText }}
+        >
+          Sign Up
+        </Typography>
         <Formik
           initialValues={{
             firstName: "",
@@ -88,13 +96,15 @@ export default function SignUp() {
             </>
           )}
         </Formik>
-        <Typography>Already have an account?</Typography>
+        <Typography sx={{ color: theme.palette.primary.contrastText }}>
+          Already have an account?
+        </Typography>
         <Link to="/login">
           <Typography
             sx={{
               textDecoration: "underline",
-              color: "black",
               ":hover": { color: theme.palette.primary.main },
+              color: theme.palette.primary.contrastText,
             }}
           >
             Login

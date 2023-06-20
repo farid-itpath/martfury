@@ -1,13 +1,13 @@
-import { Box, Container, Grid, Skeleton, Typography } from "@mui/material";
+import { Box, Container, Grid, Skeleton, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { BackToHome } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../api";
 import MyCard from "../../components/MyCard";
 import { useSelector } from "react-redux";
-import { theme } from "../../themes";
 
 export default function Category() {
+  const theme = useTheme();
   const { category } = useParams();
   const [products, setProducts] = useState([]);
   const cartData = useSelector((state) => state.cart.cartData);
@@ -58,7 +58,7 @@ export default function Category() {
           : products.map((item) => (
               <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item._id}>
                 <MyCard
-                  id={item.id}
+                  id={item._id}
                   name={item.name}
                   price={item.price}
                   image={item.image}

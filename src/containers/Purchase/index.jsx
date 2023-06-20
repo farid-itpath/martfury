@@ -7,18 +7,23 @@ import { api } from "../../api";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { fetchCartData } from "../../redux/reducers/cartSlice";
+import { useTheme } from "@emotion/react";
 
 function Purchase() {
   const cartData = useSelector((state) => state.cart.cartData);
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const theme = useTheme();
   return (
     <>
       <BackToHome />
-      {/* <Typography variant="h5" sx={{ mb: 5 }}>
+      <Typography
+        variant="h5"
+        sx={{ textAlign: "center", color: theme.palette.primary.contrastText }}
+      >
         Bill
-      </Typography> */}
+      </Typography>
       <Container
         sx={{
           minHeight: "100vh",
@@ -58,10 +63,19 @@ function Purchase() {
                 }}
               />
               <Box sx={{ width: "80%" }}>
-                <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    color: theme.palette.primary.contrastText,
+                  }}
+                >
                   {item.product_id.name}
                 </Box>
-                <Typography variant="caption">
+                <Typography
+                  variant="caption"
+                  sx={{ color: theme.palette.primary.contrastText }}
+                >
                   {item.product_id.desc}
                 </Typography>
               </Box>
@@ -87,8 +101,16 @@ function Purchase() {
                 margin: "10px",
               }}
             >
-              <Typography>{item.product_id.name}</Typography>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Typography sx={{ color: theme.palette.primary.contrastText }}>
+                {item.product_id.name}
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  color: theme.palette.primary.contrastText,
+                }}
+              >
                 {item.product_id.price}
               </Box>
             </Box>

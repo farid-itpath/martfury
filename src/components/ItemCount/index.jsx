@@ -1,14 +1,14 @@
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import { TextField, Typography } from "@mui/material";
+import { TextField, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartData } from "../../redux/reducers/cartSlice";
 import { api } from "../../api";
 import { useState } from "react";
-import { theme } from "../../themes";
 
 export default function ItemCount(props) {
   const { productId } = props;
+  const theme = useTheme();
   const user = useSelector((state) => state.auth.user);
   const cart = useSelector((state) => state.cart.cartData);
   const cartItem = cart.find((item) => item.product_id._id === productId);
@@ -62,7 +62,10 @@ export default function ItemCount(props) {
               setError("Enter valid number!");
             }
           }}
-          sx={{ width: 100 }}
+          sx={{
+            width: 100,
+            input: { color: theme.palette.primary.contrastText },
+          }}
         />
         <Button
           onClick={() => {

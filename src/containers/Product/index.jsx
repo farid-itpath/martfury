@@ -8,6 +8,7 @@ import {
   Grid,
   Skeleton,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -20,11 +21,11 @@ import useFetch from "../../hooks/useFetch";
 import { BASE_URL } from "../../utils/consts";
 import MyCard from "../../components/MyCard";
 import { fetchBestSellers } from "../../redux/reducers/productSlice";
-import { theme } from "../../themes";
 import { api } from "../../api";
 import { showSuccess } from "../../utils/helper";
 
 export default function Product() {
+  const theme = useTheme();
   const { id } = useParams();
   const user = useSelector((state) => state.auth.user);
 
@@ -81,7 +82,12 @@ export default function Product() {
         <Grid item xs={12} sm={6}>
           <Box>
             {data ? (
-              <Typography variant="h6">{data.data.Product.name}</Typography>
+              <Typography
+                variant="h6"
+                sx={{ color: theme.palette.primary.contrastText }}
+              >
+                {data.data.Product.name}
+              </Typography>
             ) : (
               <Skeleton
                 variant="text"
@@ -89,14 +95,23 @@ export default function Product() {
                 animation="wave"
               />
             )}
-            <Divider />
+            <Divider
+              sx={{ backgroundColor: theme.palette.primary.contrastText }}
+            />
             {data ? (
               <MyRating value={data.data.Product.rating} />
             ) : (
               <Skeleton variant="rounded" height={20} animation="wave" />
             )}
-            <Typography variant="caption">4 Reviews</Typography>
-            <Divider />
+            <Typography
+              variant="caption"
+              sx={{ color: theme.palette.primary.contrastText }}
+            >
+              4 Reviews
+            </Typography>
+            <Divider
+              sx={{ backgroundColor: theme.palette.primary.contrastText }}
+            />
             <Box
               sx={{ display: "flex", justifyContent: "space-around", my: 2 }}
             >
@@ -139,7 +154,9 @@ export default function Product() {
                 </Button>
               )}
             </Box>
-            <Divider />
+            <Divider
+              sx={{ backgroundColor: theme.palette.primary.contrastText }}
+            />
             {data?.data.Product.stock > 0 ? (
               <Typography variant="body1" color={theme.palette.success.main}>
                 In Stock
@@ -152,7 +169,13 @@ export default function Product() {
           </Box>
         </Grid>
       </Grid>
-      <Box sx={{ mt: 2, width: "100%" }}>
+      <Box
+        sx={{
+          mt: 2,
+          width: "100%",
+          backgroundColor: theme.palette.background.light,
+        }}
+      >
         <MyTabs
           description={data?.data.Product.description}
           review={<ReviewItem />}
@@ -160,7 +183,11 @@ export default function Product() {
       </Box>
       <Typography
         variant="h3"
-        sx={{ color: theme.palette.primary.main, fontWeight: "bold" }}
+        sx={{
+          color: theme.palette.primary.main,
+          fontWeight: "bold",
+          marginTop: 10,
+        }}
       >
         Our Best Sellers
       </Typography>

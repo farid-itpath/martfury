@@ -1,4 +1,4 @@
-import { Box, Button, Container, Divider, Typography } from "@mui/material";
+import { Box, Button, Container, Divider, Typography, useTheme } from "@mui/material";
 import BackToHome from "../../components/BackToHome";
 import CartTable from "../../components/CartTable";
 import { useEffect, useState } from "react";
@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCartData } from "../../redux/reducers/cartSlice";
 import { useNavigate } from "react-router-dom";
 import EmptyCart from "../../assets/images/emptycart.svg";
-import { theme } from "../../themes";
 
 export default function Cart() {
+  const theme = useTheme();
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [total, setTotal] = useState(0);

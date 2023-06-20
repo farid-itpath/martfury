@@ -23,51 +23,56 @@ export default function MyAppBar() {
 
   const cartData = useSelector((state) => state.cart.cartData);
   return (
-    <Box sx={{ width: "100%" }}>
-      <AppBar
-        position="fixed"
-        sx={{ width: open ? `calc(100% - ${DRAWER_WIDTH})` : "100%" }}
-        open={open}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={() => setOpen(true)}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
+    <AppBar
+      position="fixed"
+      sx={{
+        width: open ? `calc(100% - ${DRAWER_WIDTH})` : "100%",
+        backgroundColor: theme.palette.background.dark,
+      }}
+      open={open}
+    >
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={() => setOpen(true)}
+          edge="start"
+          sx={{ mr: 2, ...(open && { display: "none" }) }}
+        >
+          <MenuIcon />
+        </IconButton>
 
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{
-              display: { xs: "none", sm: "block" },
-              color: theme.palette.secondary.main,
-              fontWeight: "bold",
-            }}
-          >
-            mart
-          </Typography>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" }, fontWeight: "bold" }}
-          >
-            fury
-          </Typography>
-          <MySearchBox />
-          <Box sx={{ flexGrow: 1 }} />
-          <AnchorElContext.Provider value={{ anchorEl, setAnchorEl }}>
-            <MyIconButtonGroup cartProductsCount={cartData?.length} />
-            <MyProfileMenu cartProductsCount={cartData?.length} />
-          </AnchorElContext.Provider>
-        </Toolbar>
-        <MySpeedDial />
-      </AppBar>
-    </Box>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            color: theme.palette.primary.contrastText,
+            fontWeight: "bold",
+          }}
+        >
+          mart
+        </Typography>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            fontWeight: "bold",
+            color: theme.palette.secondary.contrastText,
+          }}
+        >
+          fury
+        </Typography>
+        <MySearchBox />
+        <Box sx={{ flexGrow: 1 }} />
+        <AnchorElContext.Provider value={{ anchorEl, setAnchorEl }}>
+          <MyIconButtonGroup cartProductsCount={cartData?.length} />
+          <MyProfileMenu cartProductsCount={cartData?.length} />
+        </AnchorElContext.Provider>
+      </Toolbar>
+      <MySpeedDial />
+    </AppBar>
   );
 }

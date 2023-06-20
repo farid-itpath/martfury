@@ -5,7 +5,12 @@ export default function MyRating(props) {
   const { value } = props;
   return (
     <Stack spacing={1}>
-      <Rating name="half-rating-read" value={value} precision={0.5} readOnly />
+      <Rating
+        name="half-rating-read"
+        value={value}
+        precision={0.5}
+        readOnly
+      />
     </Stack>
   );
 }

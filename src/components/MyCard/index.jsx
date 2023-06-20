@@ -11,10 +11,10 @@ import {
   Divider,
   IconButton,
   Tooltip,
+  useTheme,
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
-import { theme } from "../../themes";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartData } from "../../redux/reducers/cartSlice";
 import { BASE_URL } from "../../utils/consts";
@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 
 export default function MyCard(props) {
   const { name, price, image, onClick, inCart, bestSeller } = props;
+  const theme = useTheme();
   const [addedToCart, setAddedToCart] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ export default function MyCard(props) {
   }, [inCart]);
 
   return (
-    <Card>
+    <Card sx={{ backgroundColor: theme.palette.background.light }}>
       <CardActionArea>
         {bestSeller && (
           <Typography
@@ -53,7 +54,7 @@ export default function MyCard(props) {
         <CardMedia
           component="img"
           image={BASE_URL + "/" + image}
-          sx={{ height: 200, padding: 1, objectFit: "contain" }}
+          sx={{ height: 200, objectFit: "contain" }}
         />
       </CardActionArea>
       <Divider />
@@ -68,10 +69,10 @@ export default function MyCard(props) {
         onClick={onClick}
       >
         <Box sx={{ flexDirection: "column" }}>
-          <Typography variant="subtitle2" component="div">
+          <Typography variant="subtitle2" component="div" sx={{color:theme.palette.primary.contrastText}}>
             {name}
           </Typography>
-          <Typography variant="subtitle1" component="span">
+          <Typography variant="subtitle1" component="span" sx={{color:theme.palette.primary.contrastText}}>
             $ {price}
           </Typography>
         </Box>

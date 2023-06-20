@@ -1,17 +1,20 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography, useTheme } from "@mui/material";
 import myPhoto from "./../../assets/images/myphoto.jpeg";
 
-import { BackToHome, MyTextField } from "../../components";
+import { BackToHome, MyButton, MyTextField } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { Formik } from "formik";
 import { showError, showSuccess, updateFormSchema } from "../../utils/helper";
 import { api } from "../../api";
 import { updateUser } from "../../redux/reducers/authSlice";
+import { toggleTheme } from "../../redux/reducers/themeSlice";
 export default function Profile() {
   const user = useSelector((state) => state.auth.user);
   const [updateState, setUpdateState] = useState(false);
   const dispatch = useDispatch();
+  const isDark = useSelector((state) => state.theme.isDark);
+  const theme = useTheme();
   return (
     <Container
       sx={{
@@ -19,7 +22,10 @@ export default function Profile() {
       }}
     >
       <BackToHome />
-      <Typography variant="h5" sx={{ textAlign: "center" }}>
+      <Typography
+        variant="h5"
+        sx={{ textAlign: "center", color: theme.palette.primary.contrastText }}
+      >
         Profile
       </Typography>
       <Box
@@ -29,9 +35,14 @@ export default function Profile() {
           justifyContent: "flex-start",
           alignItems: "center",
           width: "50%",
+          marginTop: 10,
         }}
       >
-        <Box component="img" src={myPhoto} sx={{ height: 100 }} />
+        <Box
+          component="img"
+          src={myPhoto}
+          sx={{ height: 100, borderRadius: 50 }}
+        />
         <Formik
           initialValues={{
             firstName: user.user.firstName,
@@ -71,7 +82,15 @@ export default function Profile() {
                 }}
               >
                 {updateState ? (
-                  <Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: 1,
+                    }}
+                  >
                     <MyTextField
                       onChange={handleChange("firstName")}
                       onBlur={handleBlur("firstName")}
@@ -86,11 +105,30 @@ export default function Profile() {
                     />
                   </Box>
                 ) : (
-                  <Box>
-                    <Typography variant="body1" sx={{ textAlign: "center" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: 1,
+                    }}
+                  >
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        textAlign: "center",
+                        color: theme.palette.primary.contrastText,
+                      }}
+                    >
                       {user.user.firstName}
                     </Typography>
-                    <Typography variant="body1" sx={{ textAlign: "center" }}>
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        textAlign: "center",
+                        color: theme.palette.primary.contrastText,
+                      }}
+                    >
                       {user.user.lastName}
                     </Typography>
                   </Box>
@@ -109,6 +147,10 @@ export default function Profile() {
             </>
           )}
         </Formik>
+        <MyButton
+          title="toggle theme"
+          onClick={() => dispatch(toggleTheme(!isDark))}
+        />
       </Box>
     </Container>
   );

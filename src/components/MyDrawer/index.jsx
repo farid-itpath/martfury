@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { DrawerContext } from "../../App";
 import { useContext } from "react";
 import { Categories } from "../../utils/data";
@@ -43,60 +42,60 @@ export default function MyDrawer() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <Drawer
-        sx={{
+    <Drawer
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
           width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <Box flexGrow={1}>
-            <Typography variant="h5" color="primary" fontWeight={"bold"}>
-              Categories
-            </Typography>
-          </Box>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        {/* <MyDrawerList title="Clothing" data={Categories.clothing}/>
-        <Divider />
-        <MyDrawerList title="Furniture" data={Categories.furniture} />
-
-        <Divider />
-        <MyDrawerList title="Electronics" data={Categories.electronics} /> */}
-        <List>
-          {Categories.map((text) => (
-            <ListItem
-              key={text}
-              disablePadding
-              onClick={() => navigate(`/category/${text}`)}
-            >
-              <ListItemButton>
-                <ListItemIcon>
-                  <Typography color={"primary"}>
-                    <LabelIcon />
-                  </Typography>
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-    </Box>
+          boxSizing: "border-box",
+          backgroundColor: theme.palette.background.dark,
+        },
+      }}
+      variant="persistent"
+      anchor="left"
+      open={open}
+    >
+      <DrawerHeader>
+        <Box flexGrow={1}>
+          <Typography
+            variant="h5"
+            color="primary"
+            fontWeight={"bold"}
+            sx={{ color: theme.palette.primary.contrastText }}
+          >
+            Categories
+          </Typography>
+        </Box>
+        <IconButton
+          onClick={handleDrawerClose}
+          sx={{ color: theme.palette.primary.contrastText }}
+        >
+          <ChevronLeftIcon />
+        </IconButton>
+      </DrawerHeader>
+      <Divider />
+      <List>
+        {Categories.map((text) => (
+          <ListItem
+            key={text}
+            disablePadding
+            onClick={() => navigate(`/category/${text}`)}
+          >
+            <ListItemButton>
+              <ListItemIcon>
+                <Typography color={"primary"}>
+                  <LabelIcon />
+                </Typography>
+              </ListItemIcon>
+              <ListItemText
+                primary={text}
+                sx={{ color: theme.palette.primary.contrastText }}
+              />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Drawer>
   );
 }

@@ -9,21 +9,30 @@ import {
   showSuccess,
 } from "../../utils/helper";
 import { api } from "../../api";
+import { useTheme } from "@emotion/react";
 
 export default function ResetPassword() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const theme = useTheme();
   return (
     <Container
+      maxWidth={false}
       sx={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
+        backgroundColor: theme.palette.background.main,
       }}
     >
       <Paper
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          backgroundColor: theme.palette.background.light,
+        }}
       >
         <Formik
           initialValues={{ password: "", confirmPassword: "" }}

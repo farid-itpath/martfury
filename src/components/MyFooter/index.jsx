@@ -1,5 +1,4 @@
-import { Box, Typography } from "@mui/material";
-import { theme } from "../../themes";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { DrawerContext } from "../../App";
 import { DRAWER_WIDTH } from "../../utils/consts";
@@ -10,6 +9,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 
 export default function MyFooter() {
   const { open } = useContext(DrawerContext);
+  const theme = useTheme();
   return (
     <Box
       display={"flex"}

@@ -4,6 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { useTheme } from "@mui/material";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,6 +42,7 @@ function a11yProps(index) {
 export default function MyTabs(props) {
   const { description, review } = props;
   const [value, setValue] = React.useState(0);
+  const theme = useTheme();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -54,22 +56,48 @@ export default function MyTabs(props) {
           onChange={handleChange}
           aria-label="basic tabs example"
           variant="fullWidth"
+          sx={{
+            tab: {
+              color: "green",
+              "&.Mui-selected": {
+                color: "red",
+              },
+            },
+          }}
         >
-          <Tab label="Reviews" {...a11yProps(0)} />
-          <Tab label="Description" {...a11yProps(1)} />
+          <Tab
+            label="Reviews"
+            {...a11yProps(0)}
+            sx={{
+              "&:not(:focus)": {
+                color: theme.palette.primary.contrastText,
+              },
+            }}
+          />
+          <Tab
+            label="Description"
+            {...a11yProps(1)}
+            sx={{
+              "&:not(:focus)": {
+                color: theme.palette.primary.contrastText,
+              },
+            }}
+          />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
         {review}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Introducing the revolutionary [product name], designed to make your life
-        easier and more enjoyable. With its cutting-edge technology and sleek
-        design, this product is sure to impress. Whether you're a busy
-        professional or a tech-savvy individual, [product name] is the perfect
-        solution for your needs. It's durable, reliable, and will exceed your
-        expectations in every way possible.
-        {description}
+        <Typography sx={{ color: theme.palette.primary.contrastText }}>
+          Introducing the revolutionary [product name], designed to make your
+          life easier and more enjoyable. With its cutting-edge technology and
+          sleek design, this product is sure to impress. Whether you're a busy
+          professional or a tech-savvy individual, [product name] is the perfect
+          solution for your needs. It's durable, reliable, and will exceed your
+          expectations in every way possible.
+          {description}
+        </Typography>
       </TabPanel>
     </Box>
   );

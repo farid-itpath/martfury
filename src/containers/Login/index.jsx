@@ -1,7 +1,6 @@
-import { Box, Container, Paper, Typography } from "@mui/material";
+import { Box, Container, Paper, Typography, useTheme } from "@mui/material";
 import MyTextField from "../../components/MyTextField";
 import MyButton from "../../components/MyButton";
-import { theme } from "../../themes";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../api";
 import { useDispatch } from "react-redux";
@@ -10,16 +9,19 @@ import login from "../../assets/images/login.svg";
 import { Formik } from "formik";
 import { loginFormSchema, showError } from "../../utils/helper";
 export default function Login() {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (
     <Container
+      maxWidth={false}
       sx={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
+        backgroundColor: theme.palette.background.main,
       }}
     >
       <Box component="img" src={login} sx={{ height: "60vh", width: "40%" }} />
@@ -31,9 +33,15 @@ export default function Login() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          backgroundColor: theme.palette.background.light,
         }}
       >
-        <Typography variant="h4">Login</Typography>
+        <Typography
+          variant="h4"
+          sx={{ color: theme.palette.primary.contrastText }}
+        >
+          Login
+        </Typography>
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={loginFormSchema}
@@ -67,7 +75,7 @@ export default function Login() {
         </Formik>
         <Typography
           sx={{
-            color: "black",
+            color: theme.palette.primary.contrastText,
             ":hover": { color: theme.palette.primary.main },
             marginBottom: 5,
           }}
@@ -75,14 +83,17 @@ export default function Login() {
         >
           Forgot Password
         </Typography>
-        <Typography variant="span">
+        <Typography
+          variant="span"
+          sx={{ color: theme.palette.primary.contrastText }}
+        >
           New to MartFury?
           <Link to="/signup">
             <Typography
               variant="span"
               sx={{
                 textDecoration: "underline",
-                color: "black",
+                color: theme.palette.primary.contrastText,
                 ":hover": { color: theme.palette.primary.main },
               }}
             >

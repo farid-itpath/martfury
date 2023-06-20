@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import BackToHome from "../../components/BackToHome";
 import { Modal } from "../../components";
+import { useTheme } from "@emotion/react";
 
 export default function Orders() {
   const dispatch = useDispatch();
@@ -24,32 +25,73 @@ export default function Orders() {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({});
   const loading = useSelector((state) => state.order.isLoading);
+  const theme = useTheme();
   useEffect(() => {
     dispatch(fetchOrderHistory(user.token));
   }, [dispatch, user.token]);
   return (
     <Container>
       <BackToHome />
-      <TableContainer component={Paper}>
+      <TableContainer
+        component={Paper}
+        sx={{ backgroundColor: theme.palette.background.light }}
+      >
         <Table>
           <TableHead>
-            <TableRow sx={{ backgroundColor: "#aaa" }}>
-              <TableCell>ID</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Items</TableCell>
-              <TableCell>Status</TableCell>
+            <TableRow>
+              <TableCell
+                sx={{
+                  color: theme.palette.primary.contrastText,
+                }}
+              >
+                ID
+              </TableCell>
+              <TableCell
+                sx={{
+                  color: theme.palette.primary.contrastText,
+                }}
+              >
+                Date
+              </TableCell>
+              <TableCell
+                sx={{
+                  color: theme.palette.primary.contrastText,
+                }}
+              >
+                Items
+              </TableCell>
+              <TableCell
+                sx={{
+                  color: theme.palette.primary.contrastText,
+                }}
+              >
+                Status
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {orderHistory?.map((item, index) => (
+            {orderHistory?.map((item) => (
               <TableRow key={item.order._id}>
-                <TableCell>{item.order._id}</TableCell>
-                <TableCell>{item.order.createdAt}</TableCell>
+                <TableCell
+                  sx={{
+                    color: theme.palette.primary.contrastText,
+                  }}
+                >
+                  {item.order._id}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    color: theme.palette.primary.contrastText,
+                  }}
+                >
+                  {item.order.createdAt}
+                </TableCell>
                 <TableCell>
                   <Typography
                     sx={{
                       textDecorationLine: "underline",
                       ":hover": { color: "blue" },
+                      color: theme.palette.primary.contrastText,
                     }}
                     onClick={() => {
                       setShowModal(true);
