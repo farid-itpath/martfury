@@ -58,7 +58,6 @@ export default function Product() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center",
       }}
     >
       <BackToHome />
