@@ -4,10 +4,10 @@ import { BackToHome } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../../utils/consts";
 import { api } from "../../api";
-import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { fetchCartData } from "../../redux/reducers/cartSlice";
 import { useTheme } from "@emotion/react";
+import { showError, showSuccess } from "../../utils/helper";
 
 function Purchase() {
   const cartData = useSelector((state) => state.cart.cartData);
@@ -124,12 +124,12 @@ function Purchase() {
             api.order
               .create(user.token)
               .then((response) => {
-                enqueueSnackbar(response.data.message, { variant: "success" });
+                showSuccess(response.data.message);
                 navigate("/orders");
                 dispatch(fetchCartData(user.token));
               })
               .catch((error) => {
-                enqueueSnackbar(error.message, { variant: "error" });
+                showError(error.message);
               })
           }
         >{`Pay ${cartData.reduce((total, item) => {

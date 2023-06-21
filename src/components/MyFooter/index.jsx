@@ -49,7 +49,15 @@ export default function MyFooter() {
         </Box>
         <Box display={"flex"} flexDirection={"column"}>
           <Typography fontSize={10}>Copyright &copy; 2023</Typography>
-          <Typography fontSize={10} sx={{ textDecoration: "underline" }}>
+          <Typography
+            component="p"
+            fontSize={10}
+            sx={{
+              textDecoration: "underline",
+              ":hover": { color: theme.palette.secondary.contrastText },
+              cursor: "pointer",
+            }}
+          >
             Privacy and Policy
           </Typography>
         </Box>
@@ -59,32 +67,36 @@ export default function MyFooter() {
           sx={{
             marginX: 1,
             ":hover": {
-              color: theme.palette.primary.contrastText,
+              color: theme.palette.secondary.contrastText,
             },
+            cursor: "pointer",
           }}
         />
         <YouTubeIcon
           sx={{
             marginX: 1,
             ":hover": {
-              color: theme.palette.primary.contrastText,
+              color: theme.palette.secondary.contrastText,
             },
+            cursor: "pointer",
           }}
         />
         <InstagramIcon
           sx={{
             marginX: 1,
             ":hover": {
-              color: theme.palette.primary.contrastText,
+              color: theme.palette.secondary.contrastText,
             },
+            cursor: "pointer",
           }}
         />
         <TwitterIcon
           sx={{
             marginX: 1,
             ":hover": {
-              color: theme.palette.primary.contrastText,
+              color: theme.palette.secondary.contrastText,
             },
+            cursor: "pointer",
           }}
         />
       </Box>

@@ -10,7 +10,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { BackToHome, MyRating, MyTabs, ReviewItem } from "../../components";
@@ -39,7 +39,6 @@ export default function Product() {
 
   const cartData = useSelector((state) => state.cart.cartData);
   const bestSellers = useSelector((state) => state.product.bestSellers);
-  const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchCartData(user.token));
     dispatch(fetchBestSellers());
@@ -61,7 +60,7 @@ export default function Product() {
       }}
     >
       <BackToHome />
-      <Grid container spacing={4}>
+      <Grid container spacing={4} sx={{ marginTop: 10 }}>
         <Grid item xs={12} sm={6}>
           {isLoading ? (
             <Skeleton variant="rounded" height={200} animation="wave" />
@@ -131,6 +130,7 @@ export default function Product() {
                     setAddedToCart(!addedToCart);
                   }}
                 >
+                  Remove from Cart
                   <RemoveShoppingCartIcon />
                 </Button>
               ) : (
@@ -149,6 +149,7 @@ export default function Product() {
                     setAddedToCart(!addedToCart);
                   }}
                 >
+                  Add to Cart
                   <AddShoppingCartIcon />
                 </Button>
               )}
@@ -186,6 +187,7 @@ export default function Product() {
           color: theme.palette.primary.main,
           fontWeight: "bold",
           marginTop: 10,
+          textAlign: "center",
         }}
       >
         Our Best Sellers
@@ -204,7 +206,7 @@ export default function Product() {
                   ? true
                   : false
               }
-              onClick={() => navigate("/" + item._id)}
+              onClick={() => window.location.assign("/" + item._id)}
             />
           </Grid>
         ))}

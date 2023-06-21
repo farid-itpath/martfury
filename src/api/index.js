@@ -13,6 +13,7 @@ export const api = {
         url: "/api/user/signup",
         data: params,
         method: METHODS.POST,
+        ...params,
       }),
     profile: (token) =>
       client({

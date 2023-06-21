@@ -34,8 +34,7 @@ export default function Category() {
           minHeight: "100vh",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+          justifyContent: "flex-start",
         }}
       >
         <BackToHome />

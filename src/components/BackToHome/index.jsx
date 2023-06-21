@@ -10,7 +10,6 @@ export default function BackToHome() {
       sx={{
         backgroundColor: theme.palette.primary.main,
         position: "sticky",
-        height: "50px",
         top: useMediaQuery(theme.breakpoints.up("sm")) ? 64 : 56,
         zIndex: 999,
         borderBottomLeftRadius: 5,

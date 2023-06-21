@@ -93,6 +93,10 @@ request.interceptors.response.use(
       window.history.go("/login");
     }
 
+    if (status === 400) {
+      window.location.replace("/");
+    }
+
     const response = err.response?.data;
     const message = response ? response : err.message;
 

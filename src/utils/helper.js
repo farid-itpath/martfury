@@ -50,3 +50,16 @@ export const showSuccess = (message) =>
 
 export const showError = (message) =>
   enqueueSnackbar(message, { variant: "error" });
+
+  export function extractDateComponents(timestamp) {
+    const date = new Date(timestamp);
+  
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+  
+    const NewDate = `${day}/${month}/${year}`
+  
+    return NewDate
+  
+  }

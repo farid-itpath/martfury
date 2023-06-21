@@ -5,12 +5,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import {
   Box,
-  Button,
   CardActionArea,
   CardActions,
   Divider,
-  IconButton,
-  Tooltip,
   useTheme,
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -21,6 +18,8 @@ import { BASE_URL } from "../../utils/consts";
 import { api } from "../../api";
 import { showSuccess } from "../../utils/helper";
 import { useEffect, useState } from "react";
+import MyButton from "../MyButton";
+import DescriptionIcon from "@mui/icons-material/Description";
 
 export default function MyCard(props) {
   const { name, price, image, onClick, inCart, bestSeller } = props;
@@ -54,7 +53,7 @@ export default function MyCard(props) {
         <CardMedia
           component="img"
           image={BASE_URL + "/" + image}
-          sx={{ height: 200, objectFit: "contain" }}
+          sx={{ height: 200, objectFit: "contain", cursor: "pointer" }}
         />
       </CardActionArea>
       <Divider />
@@ -65,24 +64,40 @@ export default function MyCard(props) {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          cursor: "context-menu",
         }}
         onClick={onClick}
       >
         <Box sx={{ flexDirection: "column" }}>
-          <Typography variant="subtitle2" component="div" sx={{color:theme.palette.primary.contrastText}}>
+          <Typography
+            variant="subtitle2"
+            component="div"
+            sx={{ color: theme.palette.primary.contrastText }}
+          >
             {name}
           </Typography>
-          <Typography variant="subtitle1" component="span" sx={{color:theme.palette.primary.contrastText}}>
+          <Typography
+            variant="subtitle1"
+            component="span"
+            sx={{ color: theme.palette.primary.contrastText }}
+          >
             $ {price}
           </Typography>
         </Box>
       </CardContent>
-      <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Button variant="contained" onClick={onClick}>
-          Buy
-        </Button>
+      <CardActions sx={{ display: "flex", justifyContent: "space-around"  }}>
+        <MyButton
+          title="View"
+          type="primary"
+          endIcon={<DescriptionIcon />}
+          onClick={onClick}
+        />
         {addedToCart ? (
-          <IconButton
+          <MyButton
+            title="remove"
+            type="primary"
+            status="danger"
+            endIcon={<RemoveShoppingCartIcon />}
             onClick={() => {
               api.cart
                 .remove({
@@ -95,20 +110,12 @@ export default function MyCard(props) {
                 });
               setAddedToCart(!addedToCart);
             }}
-          >
-            <Tooltip title="Remove from Cart">
-              <RemoveShoppingCartIcon
-                color="error"
-                sx={{
-                  "&:hover": {
-                    color: theme.palette.secondary.main,
-                  },
-                }}
-              />
-            </Tooltip>
-          </IconButton>
+          />
         ) : (
-          <IconButton
+          <MyButton
+            title="Add"
+            type="primary"
+            endIcon={<AddShoppingCartIcon />}
             onClick={() => {
               api.cart
                 .add({
@@ -116,23 +123,12 @@ export default function MyCard(props) {
                   token: user.token,
                 })
                 .then((response) => {
-                  dispatch(fetchCartData(user.token));
                   showSuccess(response.data.message);
+                  dispatch(fetchCartData(user.token));
                 });
               setAddedToCart(!addedToCart);
             }}
-          >
-            <Tooltip title="Add to Cart">
-              <AddShoppingCartIcon
-                color="primary"
-                sx={{
-                  "&:hover": {
-                    color: theme.palette.secondary.main,
-                  },
-                }}
-              />
-            </Tooltip>
-          </IconButton>
+          />
         )}
       </CardActions>
     </Card>

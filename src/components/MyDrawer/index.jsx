@@ -5,7 +5,7 @@ import Drawer from "@mui/material/Drawer";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import CloseIcon from "@mui/icons-material/Close";
 import { DrawerContext } from "../../App";
 import { useContext } from "react";
 import { Categories } from "../../utils/data";
@@ -71,7 +71,7 @@ export default function MyDrawer() {
           onClick={handleDrawerClose}
           sx={{ color: theme.palette.primary.contrastText }}
         >
-          <ChevronLeftIcon />
+          <CloseIcon />
         </IconButton>
       </DrawerHeader>
       <Divider />

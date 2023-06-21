@@ -17,6 +17,7 @@ import {
 import BackToHome from "../../components/BackToHome";
 import { Modal } from "../../components";
 import { useTheme } from "@emotion/react";
+import { extractDateComponents } from "../../utils/helper";
 
 export default function Orders() {
   const dispatch = useDispatch();
@@ -84,7 +85,7 @@ export default function Orders() {
                     color: theme.palette.primary.contrastText,
                   }}
                 >
-                  {item.order.createdAt}
+                  {extractDateComponents(item.order.createdAt)}
                 </TableCell>
                 <TableCell>
                   <Typography

@@ -1,18 +1,23 @@
-// import { useTheme } from "@mui/material";
+import { useTheme } from "@emotion/react";
 import Button from "@mui/material/Button";
 
 export default function MyButton(props) {
-  const { type, title, onClick, disabled } = props;
-  // const theme = useTheme();
+  const { type, title, onClick, disabled, endIcon, status } = props;
+  const theme = useTheme();
   return (
     <Button
       variant={type === "primary" ? "contained" : "outlined"}
       sx={{
-        // ":hover": { backgroundColor: theme.palette.primary.main },
         margin: 2,
+        backgroundColor: status === "danger" && theme.palette.error.main,
+        color: theme.palette.secondary.contrastText,
+        ":hover": {
+          backgroundColor: status === "danger" && theme.palette.error.main,
+        },
       }}
       onClick={onClick}
       disabled={disabled}
+      endIcon={endIcon}
     >
       {title}
     </Button>
