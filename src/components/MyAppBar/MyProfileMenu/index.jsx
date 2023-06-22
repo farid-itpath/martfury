@@ -6,6 +6,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import MyIconButton from "../MyIconButton";
 import { useNavigate } from "react-router-dom";
 import { ButtonIcons } from "../../../utils/data";
+import { useTheme } from "@emotion/react";
 
 export default function MyProfileMenu(props) {
   const { cartProductsCount } = props;
@@ -14,6 +15,7 @@ export default function MyProfileMenu(props) {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const theme = useTheme();
 
   const navigate = useNavigate();
 
@@ -75,6 +77,11 @@ export default function MyProfileMenu(props) {
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
+      PaperProps={{
+        sx: {
+          backgroundColor: theme.palette.background.light,
+        },
+      }}
     >
       {ButtonIcons.map((item) => {
         return (
@@ -82,13 +89,18 @@ export default function MyProfileMenu(props) {
             key={item.id}
             onClick={() => {
               navigate(item.url);
+              handleMobileMenuClose();
             }}
           >
             <MyIconButton
               badgeContent={item.name === "cart" ? cartProductsCount : 0}
               icon={item.icon}
             />
-            <Typography variant="h6">{item.name.toUpperCase()}</Typography>
+            <Typography
+              sx={{ color: theme.palette.primary.contrastText }}
+            >
+              {item.name.toUpperCase()}
+            </Typography>
           </MenuItem>
         );
       })}

@@ -20,7 +20,11 @@ function Purchase() {
       <BackToHome />
       <Typography
         variant="h5"
-        sx={{ textAlign: "center", color: theme.palette.primary.contrastText }}
+        sx={{
+          textAlign: "center",
+          color: theme.palette.primary.contrastText,
+          marginTop: 5,
+        }}
       >
         Bill
       </Typography>
@@ -47,6 +51,7 @@ function Purchase() {
               sx={{
                 display: "flex",
                 padding: "10px",
+                gap: { xs: 2, sm: 5 },
               }}
               key={item.product_id._id}
             >
@@ -111,7 +116,7 @@ function Purchase() {
                   color: theme.palette.primary.contrastText,
                 }}
               >
-                {item.product_id.price}
+                $ {item.product_id.price}
               </Box>
             </Box>
           ))}
@@ -119,7 +124,7 @@ function Purchase() {
 
         <Button
           variant="contained"
-          sx={{ width: "100%" }}
+          sx={{ width: "100%", marginBottom: 5 }}
           onClick={() =>
             api.order
               .create(user.token)

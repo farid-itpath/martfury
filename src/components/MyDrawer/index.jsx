@@ -80,7 +80,10 @@ export default function MyDrawer() {
           <ListItem
             key={text}
             disablePadding
-            onClick={() => navigate(`/category/${text}`)}
+            onClick={() => {
+              navigate(`/category/${text}`);
+              setOpen(false);
+            }}
           >
             <ListItemButton>
               <ListItemIcon>

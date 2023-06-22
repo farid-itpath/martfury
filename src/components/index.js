@@ -6,7 +6,6 @@ import MyDrawer from "./MyDrawer";
 import MyIconButtonGroup from "./MyAppBar/MyIconButtonGroup";
 import MyProfileMenu from "./MyAppBar/MyProfileMenu";
 import MyIconButton from "./MyAppBar/MyIconButton";
-import MyIconButtonMenu from "./MyAppBar/MyIconButtonMenu";
 import MyDrawerList from "./MyDrawer/MyDrawerList";
 import MySpeedDial from "./MyAppBar/MySpeedDial";
 import MyRating from "./MyRating";
@@ -27,7 +26,6 @@ export {
   MyIconButtonGroup,
   MyProfileMenu,
   MyIconButton,
-  MyIconButtonMenu,
   MyDrawerList,
   MySpeedDial,
   MyRating,

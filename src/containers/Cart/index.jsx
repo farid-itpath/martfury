@@ -1,4 +1,11 @@
-import { Box, Button, Container, Divider, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import BackToHome from "../../components/BackToHome";
 import CartTable from "../../components/CartTable";
 import { useEffect, useState } from "react";
@@ -46,33 +53,78 @@ export default function Cart() {
             <Box
               sx={{
                 display: "flex",
-                justifyContent: "space-between",
+                flexDirection: "column",
                 minHeight: "30vh",
                 backgroundColor: "#cccccc",
                 padding: 5,
                 borderRadius: 10,
                 marginBottom: 5,
+                // overflowX: "auto",
+                // width: "300px",
               }}
             >
-              <Box>
-                <Typography variant="body1">Total Amount</Typography>
-                <Typography variant="body1">Discount Applied (2.5%)</Typography>
-                <Divider />
-                <Typography variant="body1">Payable Amount</Typography>
-              </Box>
-              <Box>
-                <Typography variant="body1" sx={{ textAlign: "right" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  sx={{ flexGrow: 1, textAlign: "center", fontWeight: "bold" }}
+                >
+                  Total Amount
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ flexGrow: 1, textAlign: "center" }}
+                >
                   $ {parseFloat(total).toFixed(2)}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  sx={{ flexGrow: 1, textAlign: "center", fontWeight: "bold" }}
+                >
+                  Discount Applied
                 </Typography>
                 <Typography
                   variant="body1"
                   color={"error"}
-                  sx={{ textAlign: "right" }}
+                  sx={{ flexGrow: 1, textAlign: "center" }}
                 >
                   - $ {parseFloat(total * 0.025).toFixed(2)}
                 </Typography>
-                <Divider />
-                <Typography variant="body1" sx={{ textAlign: "right" }}>
+              </Box>
+              <Divider />
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  sx={{ flexGrow: 1, textAlign: "center", fontWeight: "bold" }}
+                >
+                  Payable Amount
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ flexGrow: 1, textAlign: "center" }}
+                >
                   $ {parseFloat(total - total * 0.025).toFixed(2)}
                 </Typography>
               </Box>
@@ -94,13 +146,17 @@ export default function Cart() {
               alignItems: "center",
             }}
           >
-            <Box component="img" src={EmptyCart} />
+            <Box
+              component="img"
+              src={EmptyCart}
+              sx={{ height: { xs: 120, sm: 200, md: 300 } }}
+            />
             <Typography
-              variant="h2"
               sx={{
                 color: theme.palette.primary.main,
                 fontWeight: "bold",
                 textAlign: "center",
+                fontSize: { sm: 50 },
               }}
             >
               Your cart is empty!

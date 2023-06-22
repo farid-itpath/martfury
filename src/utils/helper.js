@@ -1,11 +1,5 @@
-// import { Product_URL } from "./consts"
 import { enqueueSnackbar } from "notistack";
 import * as Yup from "yup";
-
-// export const getData = async () => {
-//     const data = await fetch(Product_URL)
-//     return data.json()
-// }
 
 export const isFunction = (fn) => {
   if (typeof fn === "function") {
