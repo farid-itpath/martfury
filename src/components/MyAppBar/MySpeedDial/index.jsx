@@ -41,7 +41,10 @@ export default function MySpeedDial() {
             onClick={() => {
               navigate(action.url);
               action.name === "Logout" &&
-                (() => (dispatch(createUser(null)), localStorage.clear()))();
+                (() => {
+                  dispatch(createUser(null));
+                  localStorage.clear();
+                })();
             }}
           />
         ))}
