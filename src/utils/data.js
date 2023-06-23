@@ -30,18 +30,6 @@ export const ButtonIcons = [
   },
 ];
 
-// export const Categories = {
-//   clothing: { list: ["Shirts", "Pants", "Shoes"], icon: <CheckroomIcon /> },
-//   furniture: {
-//     list: ["Executive Chair", "Sofa", "Table", "Office Chair"],
-//     icon: <ChairIcon />,
-//   },
-//   electronics: {
-//     list: ["Mobiles", "Wearables", "Laptops"],
-//     icon: <PhoneAndroidIcon />,
-//   },
-// };
-
 export const Categories = [
   "Electronics",
   "Women's wear",

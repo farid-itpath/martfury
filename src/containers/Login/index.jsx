@@ -22,9 +22,14 @@ export default function Login() {
         alignItems: "center",
         height: "100vh",
         backgroundColor: theme.palette.background.main,
+        flexWrap: "wrap",
       }}
     >
-      <Box component="img" src={login} sx={{ height: "60vh", width: "40%" }} />
+      <Box
+        component="img"
+        src={login}
+        sx={{ width: { xs: "60%", sm: "40%" } }}
+      />
       <Paper
         sx={{
           boxShadow: 5,

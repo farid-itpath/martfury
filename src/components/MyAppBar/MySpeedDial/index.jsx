@@ -7,6 +7,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ProfilePhoto from "./../../../assets/images/myphoto.jpeg";
 import { useNavigate } from "react-router-dom";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import { useDispatch } from "react-redux";
+import { createUser } from "../../../redux/reducers/authSlice";
 
 const actions = [
   { icon: <PersonIcon />, name: "Profile", url: "profile" },
@@ -16,6 +18,7 @@ const actions = [
 
 export default function MySpeedDial() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <Box sx={{ transform: "translateX(0px)", flexGrow: 1 }}>
       <SpeedDial
@@ -37,7 +40,8 @@ export default function MySpeedDial() {
             tooltipTitle={action.name}
             onClick={() => {
               navigate(action.url);
-              action.name === "Logout" && localStorage.clear();
+              action.name === "Logout" &&
+                (() => (dispatch(createUser(null)), localStorage.clear()))();
             }}
           />
         ))}

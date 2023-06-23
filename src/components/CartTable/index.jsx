@@ -93,7 +93,7 @@ export default function CartTable(props) {
                         .finally(() => setLoading(false));
                     }}
                     variant="caption"
-                    sx={{ color: "red", display: "block" }}
+                    sx={{ color: "red", display: "block", cursor: "pointer" }}
                   >
                     Remove
                   </Typography>

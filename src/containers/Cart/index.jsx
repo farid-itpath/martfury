@@ -59,8 +59,6 @@ export default function Cart() {
                 padding: 5,
                 borderRadius: 10,
                 marginBottom: 5,
-                // overflowX: "auto",
-                // width: "300px",
               }}
             >
               <Box

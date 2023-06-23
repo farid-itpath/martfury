@@ -67,7 +67,6 @@ export default function ResetPassword() {
               <MyButton
                 type="primary"
                 title="Submit"
-                // disabled={!valid}
                 onClick={handleSubmit}
               />
             </>

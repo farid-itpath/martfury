@@ -91,14 +91,13 @@ export default function MyProfileMenu(props) {
               navigate(item.url);
               handleMobileMenuClose();
             }}
+            sx={{ alignItems: "baseline" }}
           >
             <MyIconButton
               badgeContent={item.name === "cart" ? cartProductsCount : 0}
               icon={item.icon}
             />
-            <Typography
-              sx={{ color: theme.palette.primary.contrastText }}
-            >
+            <Typography sx={{ color: theme.palette.primary.contrastText }}>
               {item.name.toUpperCase()}
             </Typography>
           </MenuItem>

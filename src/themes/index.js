@@ -17,6 +17,9 @@ export const lightTheme = createTheme({
     success: {
       main: "#2e7d32",
     },
+    background: {
+      footer: "#fdb701",
+    },
   },
 });
 
@@ -33,7 +36,8 @@ export const darkTheme = createTheme({
     background: {
       main: "#2a2a2a",
       dark: "#202125",
-      light:"#444448"
+      light: "#444448",
+      footer: "#202125",
     },
   },
 });

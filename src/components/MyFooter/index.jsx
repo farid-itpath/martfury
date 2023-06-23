@@ -21,6 +21,7 @@ export default function MyFooter() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-around",
+        backgroundColor: theme.palette.background.footer,
       }}
     >
       <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
@@ -29,7 +30,7 @@ export default function MyFooter() {
             variant="h6"
             component="div"
             sx={{
-              color: theme.palette.secondary.main,
+              color: theme.palette.primary.contrastText,
               fontWeight: "bold",
             }}
           >
@@ -41,20 +42,21 @@ export default function MyFooter() {
             component="div"
             sx={{
               fontWeight: "bold",
-              color: "white",
+              color: theme.palette.secondary.contrastText,
             }}
           >
             fury
           </Typography>
         </Box>
         <Box display={"flex"} flexDirection={"column"}>
-          <Typography fontSize={10}>Copyright &copy; 2023</Typography>
+          <Typography fontSize={10} sx={{color:theme.palette.secondary.contrastText}}>Copyright &copy; 2023</Typography>
           <Typography
             component="p"
             fontSize={10}
             sx={{
               textDecoration: "underline",
-              ":hover": { color: theme.palette.secondary.contrastText },
+              color:theme.palette.secondary.contrastText,
+              ":hover": { color: theme.palette.primary.contrastText },
               cursor: "pointer",
             }}
           >

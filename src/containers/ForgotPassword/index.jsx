@@ -1,8 +1,9 @@
-import { Container, Paper, useTheme } from "@mui/material";
+import { Box, Container, Paper, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import { MyButton, MyTextField } from "../../components";
 import { api } from "../../api";
 import { showError, showSuccess } from "../../utils/helper";
+import forgotPassword from "../../assets/images/forgotPassword.svg";
 
 export default function ForgotPassword() {
   const theme = useTheme();
@@ -17,8 +18,16 @@ export default function ForgotPassword() {
         alignItems: "center",
         height: "100vh",
         backgroundColor: theme.palette.background.main,
+        flexWrap: "wrap",
+        flexDirection: "column",
       }}
     >
+      <Box
+        component="img"
+        src={forgotPassword}
+        alt="forgotPassword"
+        sx={{ width: { xs: "60%", sm: "40%" } }}
+      />
       <Paper
         sx={{
           display: "flex",

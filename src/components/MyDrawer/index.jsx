@@ -82,7 +82,7 @@ export default function MyDrawer() {
             disablePadding
             onClick={() => {
               navigate(`/category/${text}`);
-              setOpen(false);
+              matches && setOpen(false);
             }}
           >
             <ListItemButton>
